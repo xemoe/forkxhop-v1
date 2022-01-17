@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: App/dev/dockers/v1/app/Dockerfile
+    container_name: app
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    privileged: true
+    environment:
+      VIRTUAL_HOST: "${DOMAIN_NAME}"
+      LETSENCRYPT_HOST: "${DOMAIN_NAME}"
+      VIRTUAL_PORT: 9000
+      VIRTUAL_ROOT: "/var/www"
+      PROXY_PASS: "false"
+    volumes:
+      - vendor-storage-dev:/var/www/vendor
+      - web-storage-dev:/var/www/storage
+      - type: bind
+        source: "${PWD}/App"
+        target: "/var/www"
+    depends_on:
+      - dbhost
+      - redis
+
+  dbhost:
+    image: mariadb
+    container_name: dbhost
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - db-storage-dev:/var/lib/mysql
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+
+volumes:
+  vendor-storage-dev:
+  web-storage-dev:
+  db-storage-dev:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
