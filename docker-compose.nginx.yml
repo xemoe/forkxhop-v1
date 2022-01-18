@@ -5,6 +5,8 @@ services:
     image: library/nginx:1-alpine
     container_name: nginx
     restart: unless-stopped
+    env_file:
+      - ./docker.env
     ports:
       - 80:80
       - 443:443

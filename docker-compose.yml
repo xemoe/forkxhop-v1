@@ -3,12 +3,14 @@ services:
   app:
     build:
       context: .
-      dockerfile: App/dev/dockers/v1/app/Dockerfile
+      dockerfile: dev/dockers/v1/app/Dockerfile
     container_name: app
     restart: unless-stopped
     stdin_open: true
     tty: true
     privileged: true
+    env_file:
+      - ./docker.env
     environment:
       VIRTUAL_HOST: "${DOMAIN_NAME}"
       LETSENCRYPT_HOST: "${DOMAIN_NAME}"
@@ -29,6 +31,8 @@ services:
     image: mariadb
     container_name: dbhost
     restart: unless-stopped
+    env_file:
+      - ./docker.env
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
