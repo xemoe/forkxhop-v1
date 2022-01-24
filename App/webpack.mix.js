@@ -11,6 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+mix.setResourceRoot('public');
+mix.setPublicPath('./public');
+
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css', [
     //
 ]);
+
+//fonts
+mix.copy('node_modules/@coreui/icons/fonts', 'public/fonts');
+
+//icons
+mix.copy('node_modules/@coreui/icons/css/free.min.css', 'public/css');
+mix.copy('node_modules/@coreui/icons/css/brand.min.css', 'public/css');
+mix.copy('node_modules/@coreui/icons/css/flag.min.css', 'public/css');
+mix.copy('node_modules/@coreui/icons/svg/flag', 'public/svg/flag');
+mix.copy('node_modules/@coreui/icons/svg/brand', 'public/svg/brand');
+mix.copy('node_modules/@coreui/icons/svg/free', 'public/svg/free');
+
+mix.copy('node_modules/@coreui/icons/sprites/', 'public/icons/sprites');

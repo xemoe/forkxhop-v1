@@ -1,36 +1,34 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo/>
-            </a>
-        </x-slot>
+<x-auth-layout>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
 
-        <div>
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+                <div class="card mb-4 mx-4">
+                    <div class="card-header">{{ __('Confirm Password') }}</div>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        <p class="text-medium-emphasis">{!! __('This is a secure area of the application. <br/>Please confirm your password before continuing.') !!}</p>
+                        <form method="POST" action="{{ route('password.confirm') }}">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <svg class="icon"><use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-lock-locked"></use></svg>
+                                </span>
+                                <input class="form-control" type="password" name="password"
+                                       placeholder="{{ __('Current Password') }}"
+                                       required>
+                            </div>
+                            <button class="btn btn-block btn-primary btn-shadow" type="submit">{{  __('Confirm') }}</button>
+                            <x-auth-validation-errors class="callout callout-danger" :errors="$errors" />
+                        </form>
+                    </div>
+                </div>
+
+            </div>
         </div>
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.confirm') }}">
-            @csrf
-
-            <!-- Password -->
-            <div>
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
-
-            <div>
-                <x-button>
-                    {{ __('Confirm') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</x-auth-layout>

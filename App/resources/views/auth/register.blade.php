@@ -1,59 +1,56 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo/>
-            </a>
-        </x-slot>
+<x-auth-layout>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors :errors="$errors" />
+                <!-- Register form card -->
+                <div class="card mb-4 mx-4">
+                    <div class="card-body p-4">
+                        <h1 class="card-title">{{ __('Register') }}</h1>
+                        <p class="card-text">Create your account</p>
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-user"></use></svg>
+                                </span>
+                                <input class="form-control" type="text" name="name"
+                                       placeholder="{{ __('Name') }}"
+                                       value="{{ old('name') }}"
+                                       required autofocus>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-envelope-open"></use></svg>
+                                </span>
+                                <input class="form-control" type="email" name="email"
+                                       placeholder="{{ __('E-Mail Address') }}"
+                                       value="{{ old('email') }}"
+                                       require>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-lock-locked"></use></svg>
+                                </span>
+                                <input class="form-control" type="password" name="password"
+                                       placeholder="{{ __('Password') }}"
+                                       required>
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-text">
+                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-lock-locked"></use></svg>
+                                </span>
+                                <input class="form-control" type="password" name="password_confirmation"
+                                       placeholder="{{ __('Confirm Password') }}"
+                                       required>
+                            </div>
+                            <button class="btn btn-block btn-primary btn-shadow" type="submit">{{ __('Register') }}</button>
+                            <x-auth-validation-errors class="callout callout-danger" :errors="$errors" />
+                        </form>
+                    </div>
+                </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" type="text" name="name" :value="old('name')" required autofocus />
             </div>
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div>
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div>
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div>
-                <a href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button>
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
+</x-auth-layout>

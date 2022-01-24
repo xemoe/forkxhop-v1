@@ -17,6 +17,8 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body>
-        {{ $slot }}
+        <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+            {{ $slot }}
+        </div>
     </body>
 </html>
