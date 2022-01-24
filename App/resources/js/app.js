@@ -1,7 +1,6 @@
 require('./bootstrap');
 
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+/**
+ * @TODO
+ * [ ] import CoreUI4.1 required js
+ */
