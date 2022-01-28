@@ -5,14 +5,14 @@
             <div>
                 <!-- Logo -->
                 <div>
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('dashboard.home') }}">
                         <x-application-logo/>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard.home')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -63,7 +63,7 @@
     <!-- Responsive Navigation Menu -->
     <div>
         <div>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard.home')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>

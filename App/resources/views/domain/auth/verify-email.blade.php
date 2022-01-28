@@ -24,14 +24,12 @@
                                 {{ __('Resend Verification Email') }}
                             </button>
                         </form>
-
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-block btn-dark">
                                 {{ __('Logout') }}
                             </button>
                         </form>
-
                     </div>
                 </div>
             </div>

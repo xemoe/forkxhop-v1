@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-
                 <div class="card mb-4 mx-4">
                     <div class="card-header">{{ __('Confirm Password') }}</div>
                     <div class="card-body">
@@ -16,18 +15,17 @@
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
-                                    <svg class="icon"><use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-lock-locked"></use></svg>
+                                    <x-auth.svg-icon :icon="'cil-lock-locked'"></x-auth.svg-icon>
                                 </span>
                                 <input class="form-control" type="password" name="password"
                                        placeholder="{{ __('Current Password') }}"
                                        required>
                             </div>
                             <button class="btn btn-block btn-primary btn-shadow" type="submit">{{  __('Confirm') }}</button>
-                            <x-auth-validation-errors class="callout callout-danger" :errors="$errors" />
+                            <x-auth.validation-errors class="callout callout-danger" :errors="$errors" />
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

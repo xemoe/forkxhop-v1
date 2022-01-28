@@ -15,9 +15,11 @@ mix.setResourceRoot('public');
 mix.setPublicPath('./public');
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css', [
-    //
-]);
+mix.sass('resources/sass/app.scss', 'public/css', []);
+
+// vendor
+mix.copy('node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js', 'public/vendor/coreui');
+mix.copy('node_modules/simplebar/dist/simplebar.min.js', 'public/vendor/simplebar');
 
 //fonts
 mix.copy('node_modules/@coreui/icons/fonts', 'public/fonts');

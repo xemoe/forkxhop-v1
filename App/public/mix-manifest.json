@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/vendor/coreui/coreui.bundle.min.js": "/vendor/coreui/coreui.bundle.min.js",
+    "/vendor/simplebar/simplebar.min.js": "/vendor/simplebar/simplebar.min.js",
     "/fonts/CoreUI-Icons-Brand.eot": "/fonts/CoreUI-Icons-Brand.eot",
     "/fonts/CoreUI-Icons-Brand.svg": "/fonts/CoreUI-Icons-Brand.svg",
     "/fonts/CoreUI-Icons-Brand.ttf": "/fonts/CoreUI-Icons-Brand.ttf",

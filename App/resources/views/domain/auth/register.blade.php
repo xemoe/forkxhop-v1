@@ -12,7 +12,7 @@
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
-                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-user"></use></svg>
+                                    <x-auth.svg-icon :icon="'cil-user'"></x-auth.svg-icon>
                                 </span>
                                 <input class="form-control" type="text" name="name"
                                        placeholder="{{ __('Name') }}"
@@ -21,7 +21,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
-                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-envelope-open"></use></svg>
+                                    <x-auth.svg-icon :icon="'cil-envelope-open'"></x-auth.svg-icon>
                                 </span>
                                 <input class="form-control" type="email" name="email"
                                        placeholder="{{ __('E-Mail Address') }}"
@@ -30,7 +30,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
-                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-lock-locked"></use></svg>
+                                    <x-auth.svg-icon :icon="'cil-lock-locked'"></x-auth.svg-icon>
                                 </span>
                                 <input class="form-control" type="password" name="password"
                                        placeholder="{{ __('Password') }}"
@@ -38,14 +38,14 @@
                             </div>
                             <div class="input-group mb-4">
                                 <span class="input-group-text">
-                                    <svg class="icon"><use xlink:href="icons/sprites/free.svg#cil-lock-locked"></use></svg>
+                                    <x-auth.svg-icon :icon="'cil-lock-locked'"></x-auth.svg-icon>
                                 </span>
                                 <input class="form-control" type="password" name="password_confirmation"
                                        placeholder="{{ __('Confirm Password') }}"
                                        required>
                             </div>
                             <button class="btn btn-block btn-primary btn-shadow" type="submit">{{ __('Register') }}</button>
-                            <x-auth-validation-errors class="callout callout-danger" :errors="$errors" />
+                            <x-auth.validation-errors class="callout callout-danger" :errors="$errors" />
                         </form>
                     </div>
                 </div>
