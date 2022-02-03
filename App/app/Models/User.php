@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\WithRolesName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements WithRolesName
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -42,4 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //
+    // Aliases
+    //
+    public function isRootUser()
+    {
+        return $this->hasRole($this::ROLE_ROOT_USER);
+    }
+
+    public function isAdminUser()
+    {
+        return $this->hasRole($this::ROLE_ADMIN_USER);
+    }
+
+    public function isSimpleUser()
+    {
+        return $this->hasRole($this::ROLE_SIMPLE_USER);
+    }
 }
