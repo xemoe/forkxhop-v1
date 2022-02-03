@@ -20,34 +20,24 @@ class DefaultUsersSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         //
-        // find existing roles
-        // - root
-        // - admin
-        // - simple
-        //
-        $roleRoot = Role::where(['name' => 'root'])->first();
-        $roleAdmin = Role::where(['name' => 'admin'])->first();
-        $roleSimpleUser = Role::where(['name' => 'simple'])->first();
-
-        //
         // create default users
         //
         $root = \App\Models\User::factory()->create([
             'name' => 'I am Root',
             'email' => 'root@example.com',
         ]);
-        $root->assignRole($roleRoot);
+        $root->syncRoles([$root::ROLE_ROOT_USER]);
 
         $admin = \App\Models\User::factory()->create([
             'name' => 'I am Admin',
             'email' => 'admin@example.com',
         ]);
-        $admin->assignRole($roleAdmin);
+        $admin->syncRoles([$admin::ROLE_ADMIN_USER]);
 
         $simple = \App\Models\User::factory()->create([
             'name' => 'I am Simple',
             'email' => 'simple@example.com',
         ]);
-        $simple->assignRole($roleSimpleUser);
+        $simple->syncRoles([$simple::ROLE_SIMPLE_USER]);
     }
 }
