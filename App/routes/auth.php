@@ -10,6 +10,12 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+//
+// @TODO
+// - [ ] add route name prefixes, E.g. guest.register, auth.login
+// - [ ] update Feature/Auth use route name
+//
+
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register');

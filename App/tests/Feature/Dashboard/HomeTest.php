@@ -10,19 +10,23 @@ class HomeTest extends TestCase
 {
     use RefreshDatabase;
 
+    const ROUTE_DASHBOARD_HOME_PAGE = 'dashboard.home';
+
     public function test_dashboard_required_authenticated()
     {
-        $response = $this->get('/dashboard');
+        $resp = $this->get(route($this::ROUTE_DASHBOARD_HOME_PAGE));
 
-        $response->assertRedirect('/login');
+        $resp->assertRedirect('/login');
     }
 
     public function test_dashboard_home_screen_can_be_rendered()
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/dashboard');
+        $resp = $this
+            ->actingAs($user)
+            ->get(route($this::ROUTE_DASHBOARD_HOME_PAGE));
 
-        $response->assertStatus(200);
+        $resp->assertStatus(200);
     }
 }
