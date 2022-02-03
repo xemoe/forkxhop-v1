@@ -41,7 +41,7 @@ class ShowUsersPageTest extends TestCase
             ->actingAs($user)
             ->get(route($this::ROUTE_SHOW_USER_PAGE));
 
-        $resp->assertStatus(200);
+        $resp->assertOk();
     }
 
     public function test_admin_user_can_access_show_user_page()
@@ -55,7 +55,7 @@ class ShowUsersPageTest extends TestCase
             ->actingAs($user)
             ->get(route($this::ROUTE_SHOW_USER_PAGE));
 
-        $resp->assertStatus(200);
+        $resp->assertOk();
     }
 
     public function test_simple_user_cannot_access_show_user_page()
@@ -69,6 +69,6 @@ class ShowUsersPageTest extends TestCase
             ->actingAs($user)
             ->get(route($this::ROUTE_SHOW_USER_PAGE));
 
-        $resp->assertStatus(403);
+        $resp->assertForbidden();
     }
 }
