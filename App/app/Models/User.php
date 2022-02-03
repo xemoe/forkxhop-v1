@@ -61,4 +61,19 @@ class User extends Authenticatable implements WithRolesName
     {
         return $this->hasRole($this::ROLE_SIMPLE_USER);
     }
+
+    public function beRootUser()
+    {
+        $this->syncRoles([$this::ROLE_ROOT_USER]);
+    }
+
+    public function beAdminUser()
+    {
+        $this->syncRoles([$this::ROLE_ADMIN_USER]);
+    }
+
+    public function beSimpleUser()
+    {
+        $this->syncRoles([$this::ROLE_SIMPLE_USER]);
+    }
 }
