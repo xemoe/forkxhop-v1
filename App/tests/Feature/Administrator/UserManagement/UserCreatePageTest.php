@@ -14,7 +14,7 @@ class UsersCreatePageTest extends TestCase
     protected $seed = true;
 
     const ROUTE_AUTH_LOGIN = 'login';
-    const ROUTE_USERS_CREATE = 'admin.user-management.create';
+    const ROUTE_USERS_CREATE = 'admin.users.create';
 
     public function test_root_user_can_access_users_create_page()
     {

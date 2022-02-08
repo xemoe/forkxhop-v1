@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -25,6 +26,7 @@ class DefaultUsersSeeder extends Seeder
         $root = \App\Models\User::factory()->create([
             'name' => 'I am Root',
             'email' => 'root@example.com',
+            'password' => Hash::make('isylzjko'),
         ]);
         $root->syncRoles([$root::ROLE_ROOT_USER]);
 

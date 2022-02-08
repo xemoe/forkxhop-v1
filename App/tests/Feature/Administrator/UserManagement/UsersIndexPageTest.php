@@ -14,7 +14,7 @@ class UsersIndexPageTest extends TestCase
     protected $seed = true;
 
     const ROUTE_AUTH_LOGIN = 'login';
-    const ROUTE_USERS_INDEX = 'admin.user-management.index';
+    const ROUTE_USERS_INDEX = 'admin.users.index';
 
     public function test_root_user_can_access_user_index_page()
     {

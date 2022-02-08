@@ -11,6 +11,20 @@
 @endphp
 
 <x-app-layout>
+    <style>
+        .bg-light {
+            background-color: var(--cui-light, #ebedef) !important;
+        }
+        thead th {
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+    </style>
     <x-dashboard.sidebar :menuSettings="$menuSettings"/>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <x-dashboard.container-header :headerSettings="$headerSettings" :breadcrumb="$breadcrumb"/>
