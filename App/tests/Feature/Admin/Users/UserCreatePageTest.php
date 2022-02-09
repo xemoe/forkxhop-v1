@@ -14,7 +14,9 @@ class UsersCreatePageTest extends TestCase
     protected $seed = true;
 
     const ROUTE_AUTH_LOGIN = 'guest.login';
+    const ROUTE_USERS_INDEX = 'admin.users.index';
     const ROUTE_USERS_CREATE = 'admin.users.create';
+    const ROUTE_USERS_POST_CREATE = 'admin.users.post-create';
 
     public function test_root_user_can_access_users_create_page()
     {
@@ -26,6 +28,23 @@ class UsersCreatePageTest extends TestCase
             ->get(route($this::ROUTE_USERS_CREATE));
 
         $resp->assertOk();
+    }
+
+    public function test_root_user_can_create_new_user()
+    {
+        $root = User::factory()->create();
+        $root->beRootUser();
+
+        $resp = $this
+            ->actingAs($root)
+            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+            ]);
+
+        $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
     }
 
     public function test_admin_user_can_access_users_create_page()
@@ -40,6 +59,23 @@ class UsersCreatePageTest extends TestCase
         $resp->assertOk();
     }
 
+    public function test_admin_user_can_create_new_user()
+    {
+        $admin = User::factory()->create();
+        $admin->beAdminUser();
+
+        $resp = $this
+            ->actingAs($admin)
+            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+            ]);
+
+        $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
+    }
+
     public function test_simple_user_cannot_access_users_create_page()
     {
         $user = User::factory()->create();
@@ -48,6 +84,23 @@ class UsersCreatePageTest extends TestCase
         $resp = $this
             ->actingAs($user)
             ->get(route($this::ROUTE_USERS_CREATE));
+
+        $resp->assertForbidden();
+    }
+
+    public function test_simple_user_cannot_create_new_user()
+    {
+        $simple = User::factory()->create();
+        $simple->beSimpleUser();
+
+        $resp = $this
+            ->actingAs($simple)
+            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+            ]);
 
         $resp->assertForbidden();
     }

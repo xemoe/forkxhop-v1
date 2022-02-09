@@ -19,16 +19,8 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1866" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/App/routes/domain/dashboard/home.php" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="190" />
+          <option name="caretOffset" value="432" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/App/resources/views/domain/admin/users/create.blade.php" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="241" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/App/routes/domain/admin/users.php" />
         </OpenedFileInfo>
       </list>
     </option>
