@@ -15,14 +15,4 @@
     </option>
   </component>
   <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
-  <component name="UnattendedHostPersistenceState">
-    <option name="openedFilesInfos">
-      <list>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="432" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/App/resources/views/domain/admin/users/create.blade.php" />
-        </OpenedFileInfo>
-      </list>
-    </option>
-  </component>
 </project>

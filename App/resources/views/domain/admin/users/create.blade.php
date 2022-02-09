@@ -8,11 +8,6 @@
     // @TODO
     // - [ ] Add js validation
     //
-    $roles = [
-        1 => 'Admin',
-        2 => 'Simple',
-        3 => 'None',
-    ];
     @endphp
 
     <div class="container-lg p-0">

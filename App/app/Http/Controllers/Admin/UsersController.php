@@ -150,9 +150,15 @@ class UsersController extends Controller
             ['name' => 'create', 'route' => route('admin.users.create'), 'active' => 'active'],
         ];
 
+        $roles = [
+            1 => 'Admin',
+            2 => 'Simple',
+            3 => 'None',
+        ];
+
         return view(
             'domain.admin.users.create',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb'])
+            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'roles'])
         );
     }
 
