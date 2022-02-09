@@ -3,6 +3,12 @@
     :headerSettings="$headerSettings"
     :breadcrumb="$breadcrumb">
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+    @endif
+
     <div class="container-fluid p-0">
         <div class="card mb-4">
 

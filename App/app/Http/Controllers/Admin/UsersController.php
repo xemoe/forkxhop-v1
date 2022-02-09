@@ -184,6 +184,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')
+            ->with('success', sprintf('Users `%s` created successfully.', $user->name));
     }
 }
