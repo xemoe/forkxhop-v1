@@ -6,8 +6,8 @@ Route::get('/dashboard', function () {
 
     //
     // @TODO
-    // - Create App/Http/Controllers/Dashboard/HomeController.php
-    // - Move variables ['menuSettings', 'headerSettings', 'breadcrumb'] to HomeController
+    // - [ ] Create App/Http/Controllers/Dashboard/HomeController.php
+    // - [ ] Move variables ['menuSettings', 'headerSettings', 'breadcrumb'] to HomeController
     //
     $menuSettings = [
         ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],

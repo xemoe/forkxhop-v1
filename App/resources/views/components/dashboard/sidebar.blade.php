@@ -33,7 +33,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('auth.logout') }}">
                                     @csrf
                                     <button class="btn btn-link nav-link nav-link-danger" target="_top" type="submit">
                                         <x-dashboard.sidebar.nav-icon :icon="'cil-account-logout'" :label="'Logout'"/>

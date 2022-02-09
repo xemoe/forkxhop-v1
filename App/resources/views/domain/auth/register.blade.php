@@ -8,7 +8,7 @@
                     <div class="card-body p-4">
                         <h1 class="card-title">{{ __('Register') }}</h1>
                         <p class="card-text">Create your account</p>
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('guest.register') }}">
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
@@ -36,7 +36,7 @@
                                        placeholder="{{ __('Password') }}"
                                        required>
                             </div>
-                            <div class="input-group mb-4">
+                            <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <x-auth.svg-icon :icon="'cil-lock-locked'"></x-auth.svg-icon>
                                 </span>

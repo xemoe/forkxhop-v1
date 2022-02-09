@@ -14,15 +14,18 @@ class EmailVerificationTest extends TestCase
 {
     use RefreshDatabase;
 
+    const ROUTE_AUTH_VERIFICATION_NOTICE = 'auth.verification.notice';
+    const ROUTE_AUTH_VERIFICATION_VERIFY = 'auth.verification.verify';
+
     public function test_email_verification_screen_can_be_rendered()
     {
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
 
-        $response = $this->actingAs($user)->get('/verify-email');
+        $response = $this->actingAs($user)->get(route($this::ROUTE_AUTH_VERIFICATION_NOTICE));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_email_can_be_verified()
@@ -34,7 +37,7 @@ class EmailVerificationTest extends TestCase
         Event::fake();
 
         $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
+            $this::ROUTE_AUTH_VERIFICATION_VERIFY,
             now()->addMinutes(60),
             ['id' => $user->id, 'hash' => sha1($user->email)]
         );
@@ -53,7 +56,7 @@ class EmailVerificationTest extends TestCase
         ]);
 
         $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
+            $this::ROUTE_AUTH_VERIFICATION_VERIFY,
             now()->addMinutes(60),
             ['id' => $user->id, 'hash' => sha1('wrong-email')]
         );

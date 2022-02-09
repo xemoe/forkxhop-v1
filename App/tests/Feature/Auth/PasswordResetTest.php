@@ -12,11 +12,16 @@ class PasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
+    const ROUTE_GUEST_PASSWORD_REQUEST = 'guest.password.request';
+    const ROUTE_GUEST_PASSWORD_EMAIL = 'guest.password.email';
+    const ROUTE_GUEST_PASSWORD_RESET = 'guest.password.reset';
+    const ROUTE_GUEST_PASSWORD_UPDATE = 'guest.password.update';
+
     public function test_reset_password_link_screen_can_be_rendered()
     {
-        $response = $this->get('/forgot-password');
+        $response = $this->get(route($this::ROUTE_GUEST_PASSWORD_REQUEST));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_reset_password_link_can_be_requested()
@@ -25,7 +30,7 @@ class PasswordResetTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->post('/forgot-password', ['email' => $user->email]);
+        $this->post(route($this::ROUTE_GUEST_PASSWORD_EMAIL), ['email' => $user->email]);
 
         Notification::assertSentTo($user, ResetPassword::class);
     }
@@ -36,12 +41,14 @@ class PasswordResetTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->post('/forgot-password', ['email' => $user->email]);
+        $this->post(route($this::ROUTE_GUEST_PASSWORD_EMAIL), ['email' => $user->email]);
 
         Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
-            $response = $this->get('/reset-password/'.$notification->token);
+            $response = $this->get(
+                route($this::ROUTE_GUEST_PASSWORD_RESET, ['token' => $notification->token])
+            );
 
-            $response->assertStatus(200);
+            $response->assertOk();
 
             return true;
         });
@@ -53,10 +60,10 @@ class PasswordResetTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->post('/forgot-password', ['email' => $user->email]);
+        $this->post(route($this::ROUTE_GUEST_PASSWORD_EMAIL), ['email' => $user->email]);
 
         Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
-            $response = $this->post('/reset-password', [
+            $response = $this->post(route($this::ROUTE_GUEST_PASSWORD_UPDATE), [
                 'token' => $notification->token,
                 'email' => $user->email,
                 'password' => 'password',

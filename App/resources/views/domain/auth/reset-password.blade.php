@@ -10,7 +10,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" action="{{ route('guest.password.update') }}">
                             @csrf
 
                             <!-- Password Reset Token -->

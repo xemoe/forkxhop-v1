@@ -10,7 +10,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('password.email') }}">
+                        <form method="POST" action="{{ route('guest.password.email') }}">
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">

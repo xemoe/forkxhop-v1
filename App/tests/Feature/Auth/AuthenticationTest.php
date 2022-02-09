@@ -11,18 +11,20 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    const ROUTE_AUTH_LOGIN = 'guest.login';
+
     public function test_login_screen_can_be_rendered()
     {
-        $response = $this->get('/login');
+        $response = $this->get(route($this::ROUTE_AUTH_LOGIN));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_users_can_authenticate_using_the_login_screen()
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
+        $response = $this->post(route($this::ROUTE_AUTH_LOGIN), [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -35,7 +37,7 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->post('/login', [
+        $this->post(route($this::ROUTE_AUTH_LOGIN), [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);

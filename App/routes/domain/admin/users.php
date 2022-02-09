@@ -11,8 +11,8 @@ Route::get('/admin/users', function () {
 
     //
     // @TODO
-    // - Create App/Http/Controllers/Admin/UsersController.php
-    // - Move variables ['menuSettings', 'headerSettings', 'breadcrumb'] to UsersController
+    // - [ ] Create App/Http/Controllers/Admin/UsersController.php
+    // - [ ] Move variables ['menuSettings', 'headerSettings', 'breadcrumb'] to UsersController
     //
     $menuSettings = [
         ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],

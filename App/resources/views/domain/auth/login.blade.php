@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h1 class="card-title">Login</h1>
                 <p class="card-text">Sign In to your account</p>
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('guest.login') }}">
                     @csrf
                     <div class="input-group mb-3">
                         <span class="input-group-text">
@@ -30,7 +30,7 @@
                             <button class="btn btn-primary px-4 btn-shadow" type="submit">{{ __('Login') }}</button>
                         </div>
                         <div class="col-6 text-end">
-                            <a href="{{ route('password.request') }}" class="btn btn-link px-0" type="button">{{ __('Forgot Your Password?') }}</a>
+                            <a href="{{ route('guest.password.request') }}" class="btn btn-link px-0" type="button">{{ __('Forgot Your Password?') }}</a>
                         </div>
                     </div>
                     <x-auth.validation-errors class="callout callout-danger" :errors="$errors" />

@@ -18,13 +18,13 @@
 
                     </div>
                     <div class="card-footer">
-                        <form method="POST" action="{{ route('verification.send') }}" class="d-inline">
+                        <form method="POST" action="{{ route('auth.verification.send') }}" class="d-inline">
                             @csrf
                             <button class="btn btn-block btn-primary btn-shadow" type="submit">
                                 {{ __('Resend Verification Email') }}
                             </button>
                         </form>
-                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                        <form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-block btn-dark">
                                 {{ __('Logout') }}

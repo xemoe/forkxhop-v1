@@ -33,7 +33,7 @@
             @endforeach
 
             <div class="dropdown-divider"></div>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('auth.logout') }}">
                 @csrf
                 <button class="btn btn-link dropdown-item" type="submit">
                     <svg class="icon me-2">

@@ -10,13 +10,14 @@ class HomeTest extends TestCase
 {
     use RefreshDatabase;
 
+    const ROUTE_AUTH_LOGIN = 'guest.login';
     const ROUTE_DASHBOARD_HOME = 'dashboard.home';
 
     public function test_dashboard_required_authenticated()
     {
         $resp = $this->get(route($this::ROUTE_DASHBOARD_HOME));
 
-        $resp->assertRedirect('/login');
+        $resp->assertRedirect(route($this::ROUTE_AUTH_LOGIN));
     }
 
     public function test_dashboard_home_screen_can_be_rendered()
@@ -27,6 +28,6 @@ class HomeTest extends TestCase
             ->actingAs($user)
             ->get(route($this::ROUTE_DASHBOARD_HOME));
 
-        $resp->assertStatus(200);
+        $resp->assertOk();
     }
 }

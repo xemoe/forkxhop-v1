@@ -11,7 +11,7 @@
                             </div>
                         @endif
                         <p class="text-medium-emphasis">{!! __('This is a secure area of the application. <br/>Please confirm your password before continuing.') !!}</p>
-                        <form method="POST" action="{{ route('password.confirm') }}">
+                        <form method="POST" action="{{ route('auth.password.confirm') }}">
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">

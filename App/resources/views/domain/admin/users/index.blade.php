@@ -15,7 +15,7 @@
             <div class="card-body p-3">
                 <div class="d-flex bd-highlight">
                     <div class="p-0 flex-grow-1 bd-highlight">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Create new user</a>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow mb-3">Create new user</a>
                     </div>
                     <div class="p-0 bd-highlight">
                         <div class="dropdown">
@@ -41,6 +41,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr>
                             <td class="text-center">
                                 <a href="#edit/1">
@@ -53,8 +54,8 @@
                             <td>otto@example.com</td>
                             <td>simple</td>
                             <td>{{ \Carbon\Carbon::parse("-2 hours") }}</td>
-
                         </tr>
+
                         <tr>
                             <td class="text-center">
                                 <a href="#edit/2">
@@ -67,8 +68,8 @@
                             <td>thornton@example.com</td>
                             <td>simple</td>
                             <td>{{ \Carbon\Carbon::parse("-1 hours 15 min") }}</td>
-
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
