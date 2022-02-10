@@ -20,7 +20,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $menuSettings = [
             ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],
@@ -79,13 +79,28 @@ class UsersController extends Controller
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
         ];
 
-        $perPage = 3;
-        $users = User::latest()->paginate($perPage);
+        $request->validate([
+            'order' => ['in:id,name,email'],
+            'sort' => ['in:asc,desc'],
+        ]);
 
+        $perPage = 3;
+        $orderBy = request()->input('order', 'id');
+        $sort = request()->input('sort', 'desc');
+        $users = User::orderBy($orderBy, $sort)->paginate($perPage);
+
+        $sortOptions = [
+            ['order' => 'id', 'sort' => 'desc'],
+            ['order' => 'id', 'sort' => 'asc'],
+            ['order' => 'name', 'sort' => 'desc'],
+            ['order' => 'name', 'sort' => 'asc'],
+            ['order' => 'email', 'sort' => 'desc'],
+            ['order' => 'email', 'sort' => 'asc'],
+        ];
 
         return view(
             'domain.admin.users.index',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'users'])
+            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'users', 'sortOptions'])
         )->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

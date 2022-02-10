@@ -29,9 +29,13 @@
                             <a class="btn btn-ghost-primary dropdown-toggle" id="dropdownMenuLink" href="#"
                                role="button" data-coreui-toggle="dropdown" aria-expanded="false">Sort</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">ID (Desc)</a></li>
-                                <li><a class="dropdown-item" href="#">Email (Desc)</a></li>
-                                <li><a class="dropdown-item" href="#">Name (Desc)</a></li>
+                                @foreach ($sortOptions as $item)
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.users.index', $item) }}">
+                                            {{ $item['order'] }} ({{ $item['sort'] }})
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
