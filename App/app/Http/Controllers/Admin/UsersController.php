@@ -79,10 +79,14 @@ class UsersController extends Controller
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
         ];
 
+        $perPage = 3;
+        $users = User::latest()->paginate($perPage);
+
+
         return view(
             'domain.admin.users.index',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb'])
-        );
+            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'users'])
+        )->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

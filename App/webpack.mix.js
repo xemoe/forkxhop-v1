@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
 mix.sass('resources/sass/app.scss', 'public/css', []);
 
 // vendor
+mix.copy('node_modules/@coreui/coreui/dist/css/coreui.min.css', 'public/vendor/coreui');
 mix.copy('node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js', 'public/vendor/coreui');
 mix.copy('node_modules/simplebar/dist/simplebar.min.js', 'public/vendor/simplebar');
 
