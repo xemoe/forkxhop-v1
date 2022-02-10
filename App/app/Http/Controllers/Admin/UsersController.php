@@ -87,7 +87,9 @@ class UsersController extends Controller
         $perPage = 3;
         $orderBy = request()->input('order', 'id');
         $sort = request()->input('sort', 'desc');
-        $users = User::orderBy($orderBy, $sort)->paginate($perPage);
+        $users = User::orderBy($orderBy, $sort)
+            ->paginate($perPage)
+            ->appends(['order' => $orderBy, 'sort' => $sort]);
 
         $sortOptions = [
             ['order' => 'id', 'sort' => 'desc'],
