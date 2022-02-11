@@ -33,12 +33,14 @@ class DefaultUsersSeeder extends Seeder
         $admin = \App\Models\User::factory()->create([
             'name' => 'I am Admin',
             'email' => 'admin@example.com',
+            'password' => Hash::make('isylzjko'),
         ]);
         $admin->syncRoles([$admin::ROLE_ADMIN_USER]);
 
         $simple = \App\Models\User::factory()->create([
             'name' => 'I am Simple',
             'email' => 'simple@example.com',
+            'password' => Hash::make('isylzjko'),
         ]);
         $simple->syncRoles([$simple::ROLE_SIMPLE_USER]);
     }

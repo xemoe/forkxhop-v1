@@ -16,14 +16,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
-        // @TODO
-        // - [ ] Change getAdminMenu to getMenu($user)
-        // - [ ] Change getAdminHeader to getHeader($user)
-        //
-        $menuSettings = (new MenuSettings())->getAdminMenu();
-        $headerSettings = (new HeaderSettings())->getAdminHeader();
-
         $breadcrumb = [
             ['name' => 'home', 'route' => route('dashboard.home')],
             ['name' => 'dashboard', 'route' => route('dashboard.home'), 'active' => 'active'],
@@ -31,7 +23,7 @@ class HomeController extends Controller
 
         return view(
             'domain.dashboard.home',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb'])
+            compact(['breadcrumb'])
         );
     }
 }

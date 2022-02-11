@@ -2,13 +2,24 @@
 
 namespace App\Services\Layouts;
 
+use App\Models\User;
+
 class HeaderSettings
 {
-    //
-    // @TODO
-    // - [ ] Add getHeader(User $user) and return from user role
-    //
-    public function getRootHeader()
+    public function getUserHeader(User $user)
+    {
+        if ($user->isRootUser()) {
+            return $this->getRootHeader($user);
+        } elseif ($user->isAdminUser()) {
+            return $this->getAdminHeader($user);
+        } elseif ($user->isSimpleUser()) {
+            return $this->getSimpleHeader($user);
+        } else {
+            abort(404);
+        }
+    }
+
+    protected function getRootHeader(User $user)
     {
         return [
             'quickMenu' => [
@@ -22,7 +33,7 @@ class HeaderSettings
             ],
             'userMenu' => [
                 'avatar' => url('assets/img/avatars/r0.jpg'),
-                'email' => 'me@example.com',
+                'email' => $user->email,
                 'dropdown' => [
                     [
                         'group' => 'Settings',
@@ -36,7 +47,7 @@ class HeaderSettings
         ];
     }
 
-    public function getAdminHeader()
+    protected function getAdminHeader(User $user)
     {
         return [
             'quickMenu' => [
@@ -50,7 +61,7 @@ class HeaderSettings
             ],
             'userMenu' => [
                 'avatar' => url('assets/img/avatars/r0.jpg'),
-                'email' => 'me@example.com',
+                'email' => $user->email,
                 'dropdown' => [
                     [
                         'group' => 'Settings',
@@ -64,12 +75,11 @@ class HeaderSettings
         ];
     }
 
-    public function getSimpleHeader()
+    protected function getSimpleHeader(User $user)
     {
         return [
             'quickMenu' => [
                 'Dashboard' => route('dashboard.home'),
-                'Users' => route('dashboard.home'),
                 'Settings' => route('dashboard.home'),
             ],
             'notificationsMenu' => [
@@ -78,7 +88,7 @@ class HeaderSettings
             ],
             'userMenu' => [
                 'avatar' => url('assets/img/avatars/r0.jpg'),
-                'email' => 'me@example.com',
+                'email' => $user->email,
                 'dropdown' => [
                     [
                         'group' => 'Settings',

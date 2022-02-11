@@ -2,13 +2,24 @@
 
 namespace App\Services\Layouts;
 
+use App\Models\User;
+
 class MenuSettings
 {
-    //
-    // @TODO
-    // - [ ] Add getMenu(User $user) and return from user role
-    //
-    public function getRootMenu()
+    public function getUserMenu(User $user)
+    {
+        if ($user->isRootUser()) {
+            return $this->getRootMenu($user);
+        } elseif ($user->isAdminUser()) {
+            return $this->getAdminMenu($user);
+        } elseif ($user->isSimpleUser()) {
+            return $this->getSimpleMenu($user);
+        } else {
+            abort(404);
+        }
+    }
+
+    protected function getRootMenu(User $user)
     {
         return [
             ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],
@@ -38,7 +49,7 @@ class MenuSettings
         ];
     }
 
-    public function getAdminMenu()
+    protected function getAdminMenu(User $user)
     {
         return [
             ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],
@@ -68,7 +79,7 @@ class MenuSettings
         ];
     }
 
-    public function getSimpleMenu()
+    protected function getSimpleMenu(User $user)
     {
         return [
             ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],

@@ -2,6 +2,9 @@
 
 namespace App\View\Components;
 
+use App\Services\Layouts\HeaderSettings;
+use App\Services\Layouts\MenuSettings;
+use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
 class DashboardLayout extends Component
@@ -10,10 +13,11 @@ class DashboardLayout extends Component
     public $headerSettings;
     public $breadcrumb;
 
-    public function __construct($menuSettings, $headerSettings, $breadcrumb)
+    public function __construct(Request $request, $breadcrumb)
     {
-        $this->menuSettings = $menuSettings;
-        $this->headerSettings = $headerSettings;
+        $this->menuSettings = (new MenuSettings())->getUserMenu($request->user());
+        $this->headerSettings = (new HeaderSettings())->getUserHeader($request->user());
+
         $this->breadcrumb = $breadcrumb;
     }
 

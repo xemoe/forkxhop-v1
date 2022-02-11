@@ -23,6 +23,7 @@ class HomeTest extends TestCase
     public function test_dashboard_home_screen_can_be_rendered()
     {
         $user = User::factory()->create();
+        $user->beSimpleUser();
 
         $resp = $this
             ->actingAs($user)

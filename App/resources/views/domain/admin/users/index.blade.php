@@ -1,7 +1,4 @@
-<x-dashboard-layout
-    :menuSettings="$menuSettings"
-    :headerSettings="$headerSettings"
-    :breadcrumb="$breadcrumb">
+<x-dashboard-layout :breadcrumb="$breadcrumb">
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">

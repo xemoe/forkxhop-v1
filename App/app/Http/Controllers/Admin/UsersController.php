@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\Layouts\HeaderSettings;
-use App\Services\Layouts\MenuSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 
+//
+// @TODO
+// - [ ] Add edit user name,email,role,active
+// - [ ] Add change user password
+// - [ ] Add delete user
+//
 class UsersController extends Controller
 {
     /**
@@ -44,13 +48,8 @@ class UsersController extends Controller
 
         //
         // @TODO
-        // - [ ] Change getAdminMenu to getMenu($user)
-        // - [ ] Change getAdminHeader to getHeader($user)
         // - [ ] Change sort options to table header icon
         //
-        $menuSettings = (new MenuSettings())->getAdminMenu();
-        $headerSettings = (new HeaderSettings())->getAdminHeader();
-
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
@@ -58,7 +57,7 @@ class UsersController extends Controller
 
         return view(
             'domain.admin.users.index',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'users', 'sortOptions'])
+            compact(['breadcrumb', 'users', 'sortOptions'])
         )->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -69,14 +68,6 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
-        // @TODO
-        // - [ ] Change getAdminMenu to getMenu($user)
-        // - [ ] Change getAdminHeader to getHeader($user)
-        //
-        $menuSettings = (new MenuSettings())->getAdminMenu();
-        $headerSettings = (new HeaderSettings())->getAdminHeader();
-
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index')],
@@ -90,7 +81,7 @@ class UsersController extends Controller
 
         return view(
             'domain.admin.users.create',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'roleOptions'])
+            compact(['breadcrumb', 'roleOptions'])
         );
     }
 
