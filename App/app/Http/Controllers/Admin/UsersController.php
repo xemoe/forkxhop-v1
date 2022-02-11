@@ -4,17 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Layouts\HeaderSettings;
+use App\Services\Layouts\MenuSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 
-//
-// @TODO
-// - [ ] Move $menuSettings to app/Services/Layouts/MenuSettings.php (LazyLoad)
-// - [ ] Move $headerSettings to app/Services/Layouts/HeaderSettings.php (LazyLoad)
-//
 class UsersController extends Controller
 {
     /**
@@ -24,63 +21,6 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $menuSettings = [
-            ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],
-            [
-                'group' => 'Reports',
-                'child' => [
-                    ['name' => 'Monthly Reports', 'route' => '#monthly-reports', 'icon' => 'cil-grid'],
-                    ['name' => 'Daily Reports', 'route' => '#daily-reports', 'icon' => 'cil-notes'],
-                ],
-            ],
-            [
-                'group' => 'Administrator',
-                'icon' => 'cil-shield-alt',
-                'child' => [
-                    [
-                        'group' => 'User Management',
-                        'icon' => 'cil-user',
-                        'child' => [
-                            ['name' => 'Show users', 'route' => route('admin.users.index'), 'badge' => 'New'],
-                            ['name' => 'Create user', 'route' => route('admin.users.create')],
-                        ],
-                    ],
-                    ['name' => 'Application Logs', 'route' => '#application-logs', 'icon' => 'cil-columns'],
-                    ['name' => 'Access Logs', 'route' => '#access-logs', 'icon' => 'cil-devices'],
-                ],
-            ],
-        ];
-
-        $headerSettings = [
-            'quickMenu' => [
-                'Dashboard' => route('dashboard.home'),
-                'Users' => route('dashboard.home'),
-                'Settings' => route('dashboard.home'),
-            ],
-            'notificationsMenu' => [
-                'cil-bell' => '#notifications',
-                'cil-list-rich' => '#event-logs',
-            ],
-            'userMenu' => [
-                'avatar' => url('assets/img/avatars/r0.jpg'),
-                'email' => 'me@example.com',
-                'dropdown' => [
-                    [
-                        'group' => 'Settings',
-                        'items' => [
-                            ['name' => 'Profile', 'route' => '#user-profile', 'icon' => 'cil-user'],
-                            ['name' => 'Settings', 'route' => '#user-settings', 'icon' => 'cil-settings'],
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        $breadcrumb = [
-            ['name' => 'admin', 'route' => route('admin.users.index')],
-            ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
-        ];
-
         $request->validate([
             'order' => ['in:id,name,email'],
             'sort' => ['in:asc,desc'],
@@ -102,6 +42,19 @@ class UsersController extends Controller
             ['order' => 'email', 'sort' => 'asc'],
         ];
 
+        //
+        // @TODO
+        // - [ ] Change getAdminMenu to getMenu($user)
+        // - [ ] Change getAdminHeader to getHeader($user)
+        //
+        $menuSettings = (new MenuSettings())->getAdminMenu();
+        $headerSettings = (new HeaderSettings())->getAdminHeader();
+
+        $breadcrumb = [
+            ['name' => 'admin', 'route' => route('admin.users.index')],
+            ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
+        ];
+
         return view(
             'domain.admin.users.index',
             compact(['menuSettings', 'headerSettings', 'breadcrumb', 'users', 'sortOptions'])
@@ -115,57 +68,13 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $menuSettings = [
-            ['name' => 'Dashboard', 'route' => route('dashboard.home'), 'icon' => 'cil-speedometer', 'badge' => 'New'],
-            [
-                'group' => 'Reports',
-                'child' => [
-                    ['name' => 'Monthly Reports', 'route' => '#monthly-reports', 'icon' => 'cil-grid'],
-                    ['name' => 'Daily Reports', 'route' => '#daily-reports', 'icon' => 'cil-notes'],
-                ],
-            ],
-            [
-                'group' => 'Administrator',
-                'icon' => 'cil-shield-alt',
-                'child' => [
-                    [
-                        'group' => 'User Management',
-                        'icon' => 'cil-user',
-                        'child' => [
-                            ['name' => 'Show users', 'route' => route('admin.users.index'), 'badge' => 'New'],
-                            ['name' => 'Create user', 'route' => route('admin.users.create')],
-                        ],
-                    ],
-                    ['name' => 'Application Logs', 'route' => '#application-logs', 'icon' => 'cil-columns'],
-                    ['name' => 'Access Logs', 'route' => '#access-logs', 'icon' => 'cil-devices'],
-                ],
-            ],
-        ];
-
-        $headerSettings = [
-            'quickMenu' => [
-                'Dashboard' => route('dashboard.home'),
-                'Users' => route('dashboard.home'),
-                'Settings' => route('dashboard.home'),
-            ],
-            'notificationsMenu' => [
-                'cil-bell' => '#notifications',
-                'cil-list-rich' => '#event-logs',
-            ],
-            'userMenu' => [
-                'avatar' => url('assets/img/avatars/r0.jpg'),
-                'email' => 'me@example.com',
-                'dropdown' => [
-                    [
-                        'group' => 'Settings',
-                        'items' => [
-                            ['name' => 'Profile', 'route' => '#user-profile', 'icon' => 'cil-user'],
-                            ['name' => 'Settings', 'route' => '#user-settings', 'icon' => 'cil-settings'],
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        //
+        // @TODO
+        // - [ ] Change getAdminMenu to getMenu($user)
+        // - [ ] Change getAdminHeader to getHeader($user)
+        //
+        $menuSettings = (new MenuSettings())->getAdminMenu();
+        $headerSettings = (new HeaderSettings())->getAdminHeader();
 
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
@@ -194,6 +103,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        //
+        // @TODO
+        // - [ ] Add create user with input `active` and check $user->active state
+        //
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
