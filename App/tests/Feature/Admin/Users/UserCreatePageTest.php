@@ -47,6 +47,48 @@ class UsersCreatePageTest extends TestCase
         $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
     }
 
+    public function test_root_user_can_create_new_admin_user()
+    {
+        $root = User::factory()->create();
+        $root->beRootUser();
+
+        $resp = $this
+            ->actingAs($root)
+            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+                'role' => User::ROLE_ADMIN_USER,
+            ]);
+
+        $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
+
+        $createdUser = User::whereEmail('test@example.com')->first();
+        $this->assertTrue($createdUser->isAdminUser());
+    }
+
+    public function test_root_user_can_create_new_simple_user()
+    {
+        $root = User::factory()->create();
+        $root->beRootUser();
+
+        $resp = $this
+            ->actingAs($root)
+            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+                'role' => User::ROLE_SIMPLE_USER,
+            ]);
+
+        $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
+
+        $createdUser = User::whereEmail('test@example.com')->first();
+        $this->assertTrue($createdUser->isSimpleUser());
+    }
+
     public function test_admin_user_can_access_users_create_page()
     {
         $user = User::factory()->create();

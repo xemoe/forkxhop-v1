@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 
 //
 // @TODO
@@ -171,15 +173,14 @@ class UsersController extends Controller
             ['name' => 'create', 'route' => route('admin.users.create'), 'active' => 'active'],
         ];
 
-        $roles = [
-            1 => 'Admin',
-            2 => 'Simple',
-            3 => 'None',
+        $roleOptions = [
+            User::ROLE_ADMIN_USER,
+            User::ROLE_SIMPLE_USER,
         ];
 
         return view(
             'domain.admin.users.create',
-            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'roles'])
+            compact(['menuSettings', 'headerSettings', 'breadcrumb', 'roleOptions'])
         );
     }
 
@@ -197,6 +198,9 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => [
+                Rule::in([User::ROLE_ADMIN_USER, User::ROLE_SIMPLE_USER])
+            ]
         ]);
 
         $user = User::create([
@@ -204,6 +208,8 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->syncRoles([$request->role]);
 
         return redirect()->route('admin.users.index')
             ->with('success', sprintf('Users `%s` created successfully.', $user->name));

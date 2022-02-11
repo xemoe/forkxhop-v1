@@ -52,10 +52,11 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="inputSelectRole">Role</label>
                             <select class="form-select" id="inputSelectRole" size="4" name="role">
-                                <option selected>Choose...</option>
-                                @foreach ($roles as $roleValue => $roleName)
-                                    <option value="{{ $roleValue }}">{{ $roleName }}</option>
+                                <option class="text-capitalize" selected>Choose...</option>
+                                @foreach ($roleOptions as $role)
+                                    <option value="{{ $role }}" class="text-capitalize">{{ $role }}</option>
                                 @endforeach
+                                <option class="text-capitalize">none</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
