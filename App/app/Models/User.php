@@ -23,6 +23,7 @@ class User extends Authenticatable implements WithRolesName
         'name',
         'email',
         'password',
+        'active'
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable implements WithRolesName
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'active' => 'boolean',
     ];
 
     //
@@ -75,5 +77,25 @@ class User extends Authenticatable implements WithRolesName
     public function beSimpleUser()
     {
         $this->syncRoles([$this::ROLE_SIMPLE_USER]);
+    }
+
+    //
+    // Active user
+    //
+    public function isActive()
+    {
+        return $this->active === true;
+    }
+
+    public function activeUser()
+    {
+        $this->active = true;
+        $this->save();
+    }
+
+    public function deactiveUser()
+    {
+        $this->active = false;
+        $this->save();
     }
 }

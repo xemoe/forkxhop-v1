@@ -56,7 +56,6 @@
                                 @foreach ($roleOptions as $role)
                                     <option value="{{ $role }}" class="text-capitalize">{{ $role }}</option>
                                 @endforeach
-                                <option class="text-capitalize">none</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">

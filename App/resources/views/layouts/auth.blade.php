@@ -14,12 +14,14 @@
         <link rel="stylesheet" href="{{ asset('vendor/coreui/coreui.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body>
         <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
             {{ $slot }}
         </div>
+
+        <!-- Scripts -->
+        <script src="{{ asset('vendor/coreui/coreui.bundle.min.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </body>
 </html>

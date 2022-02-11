@@ -42,6 +42,7 @@ class UsersCreatePageTest extends TestCase
                 'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
+                'active' => 'on',
             ]);
 
         $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
@@ -60,6 +61,7 @@ class UsersCreatePageTest extends TestCase
                 'password' => 'password',
                 'password_confirmation' => 'password',
                 'role' => User::ROLE_ADMIN_USER,
+                'active' => 'on',
             ]);
 
         $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
@@ -81,6 +83,7 @@ class UsersCreatePageTest extends TestCase
                 'password' => 'password',
                 'password_confirmation' => 'password',
                 'role' => User::ROLE_SIMPLE_USER,
+                'active' => 'on',
             ]);
 
         $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
@@ -113,6 +116,7 @@ class UsersCreatePageTest extends TestCase
                 'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
+                'active' => 'on',
             ]);
 
         $resp->assertRedirect(route($this::ROUTE_USERS_INDEX));
@@ -142,6 +146,7 @@ class UsersCreatePageTest extends TestCase
                 'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
+                'active' => 'on',
             ]);
 
         $resp->assertForbidden();

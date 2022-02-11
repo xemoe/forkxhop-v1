@@ -46,6 +46,7 @@ class UsersController extends Controller
         // @TODO
         // - [ ] Change getAdminMenu to getMenu($user)
         // - [ ] Change getAdminHeader to getHeader($user)
+        // - [ ] Change sort options to table header icon
         //
         $menuSettings = (new MenuSettings())->getAdminMenu();
         $headerSettings = (new HeaderSettings())->getAdminHeader();
@@ -103,23 +104,21 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // @TODO
-        // - [ ] Add create user with input `active` and check $user->active state
-        //
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => [
                 Rule::in([User::ROLE_ADMIN_USER, User::ROLE_SIMPLE_USER])
-            ]
+            ],
+            'active' => ['in:on']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'active' => $request->active == 'on',
         ]);
 
         $user->syncRoles([$request->role]);

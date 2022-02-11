@@ -1,6 +1,13 @@
 <x-auth-layout>
     <x-auth.card-group>
 
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ __('Authentication Failed!') }}</strong> {{ $message }}
+            <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <!-- SignIn form card -->
         <div class="card col-md-7 p-4 mb-0">
             <div class="card-body">
