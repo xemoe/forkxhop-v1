@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\{Str, Facades\Hash};
 use Illuminate\Validation\{Rule, Rules};
 
-//
-// @TODO
-// - [ ] Add edit user name,email,role,active
-// - [ ] Add change user password
-// - [ ] Add delete user
-//
 class UsersController extends Controller
 {
     /**
@@ -44,10 +38,6 @@ class UsersController extends Controller
             ['order' => 'email', 'sort' => 'asc'],
         ];
 
-        //
-        // @TODO
-        // - [ ] Change sort options to table header icon
-        //
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],

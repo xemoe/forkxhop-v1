@@ -1,12 +1,5 @@
 <x-dashboard-layout :breadcrumb="$breadcrumb">
 
-    @php
-    //
-    // @TODO
-    // - [ ] Add js validation
-    //
-    @endphp
-
     <div class="container-lg p-0">
         <div class="card mb-4">
             <form method="POST" action="{{ route('admin.users.post-create') }}">
