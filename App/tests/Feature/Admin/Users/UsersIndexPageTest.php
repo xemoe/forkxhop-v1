@@ -40,6 +40,22 @@ class UsersIndexPageTest extends TestCase
         $resp->assertOk();
     }
 
+    public function test_admin_user_can_see_users_table()
+    {
+        $user = User::factory()->create();
+        $user->beAdminUser();
+
+        $resp = $this
+            ->actingAs($user)
+            ->get(route($this::ROUTE_USERS_INDEX));
+
+        $resp->assertOk();
+
+        $escaped = false; // not strip_tags
+        $resp->assertSee('<td>' . $user->name . '</td>', $escaped);
+        $resp->assertSee('<td>' . $user->email . '</td>', $escaped);
+    }
+
     public function test_simple_user_cannot_access_user_index_page()
     {
         $user = User::factory()->create();
