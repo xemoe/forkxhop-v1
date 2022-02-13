@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rules;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\{Str, Facades\Hash};
+use Illuminate\Validation\{Rule, Rules};
 
 //
 // @TODO

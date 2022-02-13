@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Services\Layouts\HeaderSettings;
-use App\Services\Layouts\MenuSettings;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

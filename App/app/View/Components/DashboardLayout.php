@@ -2,8 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Services\Layouts\HeaderSettings;
-use App\Services\Layouts\MenuSettings;
+use App\Services\Layouts\{HeaderSettings, MenuSettings};
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
