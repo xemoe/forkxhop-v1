@@ -21,7 +21,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        .form-label {
+        .form-label, .col-form-label {
             font-weight: 600;
         }
     </style>

@@ -10,19 +10,19 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    const ROUTE_GUEST_REGISTER = 'guest.register';
-    const ROUTE_GUEST_POST_REGISTER = 'guest.post-register';
+    const ROUTE_GUEST_REGISTER_CREATE = 'guest.register.create';
+    const ROUTE_GUEST_REGISTER_STORE = 'guest.register.store';
 
     public function test_registration_screen_can_be_rendered()
     {
-        $response = $this->get(route($this::ROUTE_GUEST_REGISTER));
+        $response = $this->get(route($this::ROUTE_GUEST_REGISTER_CREATE));
 
         $response->assertOk();
     }
 
     public function test_new_users_can_register()
     {
-        $response = $this->post(route($this::ROUTE_GUEST_POST_REGISTER), [
+        $response = $this->post(route($this::ROUTE_GUEST_REGISTER_STORE), [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',

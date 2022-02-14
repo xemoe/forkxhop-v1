@@ -18,7 +18,7 @@
             <div class="card-body p-3">
                 <div class="d-flex bd-highlight">
                     <div class="p-0 flex-grow-1 bd-highlight">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow mb-3">Create new
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow bg-primary mb-3">Create new
                             user</a>
                     </div>
                     <div class="p-0 bd-highlight">
@@ -42,7 +42,7 @@
                     <table class="table table-hover table-bordered">
                         <thead class="table-light">
                         <tr>
-                            <th scope="col" style="width: 48px;"></th>
+                            <th scope="col" colspan="2"></th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
@@ -61,7 +61,14 @@
 
                         @foreach ($users as $user)
                             <tr>
-                                <td class="text-center">
+                                <td class="p-0 align-middle text-center">
+                                    <a href="{{ route('admin.users.show', ['user' => $user]) }}">
+                                        <svg class="icon icon-sm">
+                                            <use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-search"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                                <td class="p-0 align-middle text-center">
                                     <a href="#edit/{{ $user->id }}">
                                         <svg class="icon icon-sm">
                                             <use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-pen"/>

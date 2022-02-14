@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
-                ->name('guest.register');
+                ->name('guest.register.create');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest')
-                ->name('guest.post-register');
+                ->name('guest.register.store');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
@@ -24,7 +24,7 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest')
-                ->name('guest.post-login');
+                ->name('guest.login.store');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
@@ -60,7 +60,7 @@ Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
 
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
                 ->middleware('auth')
-                ->name('auth.password.post-confirm');
+                ->name('auth.password.store');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')

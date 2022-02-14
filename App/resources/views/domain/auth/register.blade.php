@@ -8,7 +8,7 @@
                     <div class="card-body p-4">
                         <h1 class="card-title">{{ __('Register') }}</h1>
                         <p class="card-text">Create your account</p>
-                        <form method="POST" action="{{ route('guest.register') }}">
+                        <form method="POST" action="{{ route('guest.register.store') }}">
                             @csrf
                             <div class="input-group mb-3">
                                 <span class="input-group-text">

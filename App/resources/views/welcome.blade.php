@@ -29,8 +29,8 @@
                     @else
                         <a href="{{ route('guest.login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-                        @if (Route::has('guest.register'))
-                            <a href="{{ route('guest.register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @if (Route::has('guest.register.create'))
+                            <a href="{{ route('guest.register.create') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
                         @endif
                     @endauth
                 </div>

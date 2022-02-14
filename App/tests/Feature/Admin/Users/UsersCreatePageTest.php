@@ -4,7 +4,6 @@ namespace Tests\Feature\Admin\Users;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class UsersCreatePageTest extends TestCase
@@ -16,7 +15,7 @@ class UsersCreatePageTest extends TestCase
     const ROUTE_AUTH_LOGIN = 'guest.login';
     const ROUTE_USERS_INDEX = 'admin.users.index';
     const ROUTE_USERS_CREATE = 'admin.users.create';
-    const ROUTE_USERS_POST_CREATE = 'admin.users.post-create';
+    const ROUTE_USERS_STORE = 'admin.users.store';
 
     public function test_root_user_can_access_users_create_page()
     {
@@ -37,7 +36,7 @@ class UsersCreatePageTest extends TestCase
 
         $resp = $this
             ->actingAs($root)
-            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+            ->post(route($this::ROUTE_USERS_STORE), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => 'password',
@@ -55,7 +54,7 @@ class UsersCreatePageTest extends TestCase
 
         $resp = $this
             ->actingAs($root)
-            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+            ->post(route($this::ROUTE_USERS_STORE), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => 'password',
@@ -77,7 +76,7 @@ class UsersCreatePageTest extends TestCase
 
         $resp = $this
             ->actingAs($root)
-            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+            ->post(route($this::ROUTE_USERS_STORE), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => 'password',
@@ -111,7 +110,7 @@ class UsersCreatePageTest extends TestCase
 
         $resp = $this
             ->actingAs($admin)
-            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+            ->post(route($this::ROUTE_USERS_STORE), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => 'password',
@@ -141,7 +140,7 @@ class UsersCreatePageTest extends TestCase
 
         $resp = $this
             ->actingAs($simple)
-            ->post(route($this::ROUTE_USERS_POST_CREATE), [
+            ->post(route($this::ROUTE_USERS_STORE), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => 'password',

@@ -11,7 +11,7 @@ class PasswordConfirmationTest extends TestCase
     use RefreshDatabase;
 
     const ROUTE_AUTH_PASSWORD_CONFIRM = 'auth.password.confirm';
-    const ROUTE_AUTH_PASSWORD_POST_CONFIRM = 'auth.password.post-confirm';
+    const ROUTE_AUTH_PASSWORD_STORE = 'auth.password.store';
 
     public function test_confirm_password_screen_can_be_rendered()
     {
@@ -26,7 +26,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route($this::ROUTE_AUTH_PASSWORD_POST_CONFIRM), [
+        $response = $this->actingAs($user)->post(route($this::ROUTE_AUTH_PASSWORD_STORE), [
             'password' => 'password',
         ]);
 
@@ -38,7 +38,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route($this::ROUTE_AUTH_PASSWORD_POST_CONFIRM), [
+        $response = $this->actingAs($user)->post(route($this::ROUTE_AUTH_PASSWORD_STORE), [
             'password' => 'wrong-password',
         ]);
 

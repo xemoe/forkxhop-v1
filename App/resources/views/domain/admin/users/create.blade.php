@@ -2,7 +2,7 @@
 
     <div class="container-lg p-0">
         <div class="card mb-4">
-            <form method="POST" action="{{ route('admin.users.post-create') }}">
+            <form method="POST" action="{{ route('admin.users.store') }}">
                 @csrf
                 <div class="card-header">
                     <strong>Create new user</strong>

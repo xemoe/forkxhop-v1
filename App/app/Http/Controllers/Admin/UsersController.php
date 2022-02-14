@@ -43,10 +43,7 @@ class UsersController extends Controller
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
         ];
 
-        return view(
-            'domain.admin.users.index',
-            compact(['breadcrumb', 'users', 'sortOptions'])
-        )->with('i', (request()->input('page', 1) - 1) * $perPage);
+        return view('domain.admin.users.index', compact(['breadcrumb', 'users', 'sortOptions']));
     }
 
     /**
@@ -67,10 +64,7 @@ class UsersController extends Controller
             User::ROLE_SIMPLE_USER,
         ];
 
-        return view(
-            'domain.admin.users.create',
-            compact(['breadcrumb', 'roleOptions'])
-        );
+        return view('domain.admin.users.create', compact(['breadcrumb', 'roleOptions']));
     }
 
     /**
@@ -104,5 +98,16 @@ class UsersController extends Controller
 
         return redirect()->route('admin.users.index')
             ->with('success', sprintf('Users `%s` created successfully.', $user->name));
+    }
+
+    public function show(User $user)
+    {
+        $breadcrumb = [
+            ['name' => 'admin', 'route' => route('admin.users.index')],
+            ['name' => 'users', 'route' => route('admin.users.index')],
+            ['name' => $user->email, 'route' => route('admin.users.show', ['user' => $user]), 'active' => 'active'],
+        ];
+
+        return view('domain.admin.users.show', compact(['breadcrumb', 'user']));
     }
 }

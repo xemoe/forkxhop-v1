@@ -4,7 +4,6 @@ namespace Tests\Feature\Admin\Users;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class UsersIndexPageTest extends TestCase
@@ -16,7 +15,7 @@ class UsersIndexPageTest extends TestCase
     const ROUTE_AUTH_LOGIN = 'guest.login';
     const ROUTE_USERS_INDEX = 'admin.users.index';
 
-    public function test_root_user_can_access_user_index_page()
+    public function test_root_user_can_access_users_index_page()
     {
         $user = User::factory()->create();
         $user->beRootUser();
@@ -28,7 +27,7 @@ class UsersIndexPageTest extends TestCase
         $resp->assertOk();
     }
 
-    public function test_admin_user_can_access_user_index_page()
+    public function test_admin_user_can_access_users_index_page()
     {
         $user = User::factory()->create();
         $user->beAdminUser();
@@ -56,7 +55,7 @@ class UsersIndexPageTest extends TestCase
         $resp->assertSee('<td>' . $user->email . '</td>', $escaped);
     }
 
-    public function test_simple_user_cannot_access_user_index_page()
+    public function test_simple_user_cannot_access_users_index_page()
     {
         $user = User::factory()->create();
         $user->beSimpleUser();
@@ -68,7 +67,7 @@ class UsersIndexPageTest extends TestCase
         $resp->assertForbidden();
     }
 
-    public function test_guest_cannot_access_user_index_page()
+    public function test_guest_cannot_access_users_index_page()
     {
         $resp = $this->get(route($this::ROUTE_USERS_INDEX));
 
