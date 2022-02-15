@@ -105,9 +105,106 @@ class UsersController extends Controller
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index')],
-            ['name' => $user->email, 'route' => route('admin.users.show', ['user' => $user]), 'active' => 'active'],
+            ['name' => $user->name, 'route' => route('admin.users.show', ['user' => $user]), 'active' => 'active'],
         ];
 
         return view('domain.admin.users.show', compact(['breadcrumb', 'user']));
+    }
+
+    public function edit(User $user)
+    {
+        $breadcrumb = [
+            ['name' => 'admin', 'route' => route('admin.users.index')],
+            ['name' => 'users', 'route' => route('admin.users.index')],
+            ['name' => $user->name, 'route' => route('admin.users.edit', ['user' => $user]), 'active' => 'active'],
+        ];
+
+        $roleOptions = [
+            User::ROLE_ADMIN_USER,
+            User::ROLE_SIMPLE_USER,
+        ];
+
+        return view('domain.admin.users.edit', compact(['breadcrumb', 'roleOptions', 'user']));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'update_form' => ['required', 'in:information,email,password'],
+        ]);
+
+        //
+        // Default
+        //
+        $success = false;
+        $roleChanged = false;
+        $responseState = 'none';
+        $responseMsg = sprintf('Users `%s` nothing changes.', $user->name);
+
+        switch ($request->update_form) {
+            case 'information':
+                //
+                // Change only user information
+                //
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'role' => [
+                        Rule::in([User::ROLE_ADMIN_USER, User::ROLE_SIMPLE_USER])
+                    ],
+                    'active' => ['in:on']
+                ]);
+
+                $success = $user->update([
+                    'name' => $request->name,
+                    'active' => $request->active == 'on',
+                ]);
+
+                //
+                // Check role has changes
+                //
+                $oldRoles = $user->getRoleNames();
+                $user->syncRoles([$request->role]);
+
+                $roleChanged = $oldRoles->diff($user->getRoleNames())->count() > 0;
+
+                break;
+            case 'email':
+                //
+                // Change only user email
+                //
+                $request->validate([
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+                ]);
+
+                $success = $user->update([
+                    'email' => $request->email,
+                ]);
+                break;
+            case 'password':
+                //
+                // Change only user password
+                //
+                $request->validate([
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
+
+                $success = $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+                break;
+        }
+
+        $changed = $roleChanged || $user->wasChanged();
+
+        if ($success && $changed) {
+            $responseState = 'success';
+            $responseMsg = sprintf('Users `%s` has been updated.', $user->name);
+        } elseif (!$success) {
+            $responseState = 'failed';
+            $responseMsg = sprintf('Users `%s` update failed.', $user->name);
+        }
+
+        return redirect()->route('admin.users.edit', ['user' => $user])
+            ->with($responseState, $responseMsg);
     }
 }

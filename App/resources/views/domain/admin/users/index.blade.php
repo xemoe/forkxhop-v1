@@ -1,5 +1,13 @@
 <x-dashboard-layout :breadcrumb="$breadcrumb">
 
+    @php
+        $rolesBadge = [
+            'root' => 'bg-primary',
+            'admin' => 'bg-success',
+            'simple' => 'bg-light text-dark',
+        ];
+    @endphp
+
     @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
             {{ $message }}
@@ -18,8 +26,9 @@
             <div class="card-body p-3">
                 <div class="d-flex bd-highlight">
                     <div class="p-0 flex-grow-1 bd-highlight">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow bg-primary mb-3">Create new
-                            user</a>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow bg-primary mb-3">
+                            Create New User
+                        </a>
                     </div>
                     <div class="p-0 bd-highlight">
                         <div class="dropdown">
@@ -37,7 +46,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead class="table-light">
@@ -50,15 +58,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        @php
-                        $rolesBadge = [
-                            'root' => 'bg-primary',
-                            'admin' => 'bg-success',
-                            'simple' => 'bg-light text-dark',
-                        ];
-                        @endphp
-
                         @foreach ($users as $user)
                             <tr>
                                 <td class="p-0 align-middle text-center">
@@ -69,7 +68,7 @@
                                     </a>
                                 </td>
                                 <td class="p-0 align-middle text-center">
-                                    <a href="#edit/{{ $user->id }}">
+                                    <a href="{{ route('admin.users.edit', ['user' => $user]) }}">
                                         <svg class="icon icon-sm">
                                             <use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-pen"/>
                                         </svg>
@@ -80,14 +79,15 @@
                                 <td>
                                     @if(!empty($user->getRoleNames()))
                                         @foreach($user->getRoleNames() as $v)
-                                            <label class="badge rounded-pill {{ $rolesBadge[$v] ?? '' }}">{{ $v }}</label>
+                                            <label class="badge rounded-pill {{ $rolesBadge[$v] ?? '' }}">
+                                                {{ $v }}
+                                            </label>
                                         @endforeach
                                     @endif
                                 </td>
                                 <td>{{ $user->updated_at }}</td>
                             </tr>
                         @endforeach
-
                         </tbody>
                     </table>
                 </div>

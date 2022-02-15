@@ -1,11 +1,12 @@
 <x-dashboard-layout :breadcrumb="$breadcrumb">
 
     <div class="container-lg p-0">
+        <x-dashboard.cards.validation-errors class="callout callout-danger bg-white" :errors="$errors" />
         <div class="card mb-4">
             <form method="POST" action="{{ route('admin.users.store') }}">
                 @csrf
                 <div class="card-header">
-                    <strong>Create new user</strong>
+                    <strong>Create New User</strong>
                 </div>
 
                 <div class="card-body p-3">
@@ -61,7 +62,7 @@
 
                 <div class="card-footer text-end">
                     <div class="col-12">
-                        <button class="btn btn-primary btn-shadow" type="submit">Submit</button>
+                        <button class="btn btn-primary bg-primary btn-shadow" type="submit">Submit</button>
                     </div>
                 </div>
 
