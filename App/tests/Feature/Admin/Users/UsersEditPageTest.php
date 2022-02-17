@@ -190,6 +190,25 @@ class UsersEditPageTest extends TestCase
         $this->assertAuthenticatedAs($editUser);
     }
 
+    public function test_admin_user_can_deactive_user()
+    {
+        $admin = User::factory()->create();
+        $admin->beAdminUser();
+
+        $editUser = User::factory()->create();
+
+        $resp = $this
+            ->actingAs($admin)
+            ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
+                'update_form' => 'information',
+                'name' => $editUser->name,
+                'role' => 'simple',
+            ]);
+
+        $resp->assertRedirect();
+        $this->assertFalse($editUser->fresh()->isActive());
+    }
+
     public function test_admin_user_can_delete_user()
     {
         $admin = User::factory()->create();

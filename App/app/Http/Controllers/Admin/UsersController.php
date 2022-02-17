@@ -149,6 +149,7 @@ class UsersController extends Controller
                 $request->validate([
                     'name' => ['required', 'string', 'max:255'],
                     'role' => [
+                        'required',
                         Rule::in([User::ROLE_ADMIN_USER, User::ROLE_SIMPLE_USER])
                     ],
                     'active' => ['in:on']
@@ -212,7 +213,7 @@ class UsersController extends Controller
     {
         $isDeleted = false;
         $request->validate([
-            'confirm_delete' => ['in:on']
+            'confirm_delete' => ['required', 'in:on']
         ]);
 
         if ($request->confirm_delete == 'on') {
