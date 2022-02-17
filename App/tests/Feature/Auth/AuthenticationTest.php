@@ -12,6 +12,7 @@ class AuthenticationTest extends TestCase
     use RefreshDatabase;
 
     const ROUTE_AUTH_LOGIN = 'guest.login';
+    const ROUTE_AUTH_LOGOUT = 'auth.logout';
 
     public function test_login_screen_can_be_rendered()
     {
@@ -42,6 +43,21 @@ class AuthenticationTest extends TestCase
             'password' => 'wrong-password',
         ]);
 
+        $this->assertGuest();
+    }
+
+    public function test_user_logout()
+    {
+        $user = User::factory()->create();
+
+        $this->post(route($this::ROUTE_AUTH_LOGIN), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+
+        $this->post(route($this::ROUTE_AUTH_LOGOUT));
         $this->assertGuest();
     }
 }

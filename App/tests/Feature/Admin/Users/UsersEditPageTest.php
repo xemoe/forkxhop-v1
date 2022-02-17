@@ -13,7 +13,7 @@ class UsersEditPageTest extends TestCase
     protected $seed = true;
 
     const ROUTE_AUTH_LOGIN = 'guest.login';
-    const ROUTE_USERS_INDEX = 'admin.users.index';
+    const ROUTE_AUTH_LOGOUT = 'auth.logout';
     const ROUTE_USERS_EDIT = 'admin.users.edit';
     const ROUTE_USERS_UPDATE = 'admin.users.update';
     const ROUTE_USERS_DESTROY = 'admin.users.destroy';
@@ -60,6 +60,7 @@ class UsersEditPageTest extends TestCase
             ->actingAs($root)
             ->get(route($this::ROUTE_USERS_EDIT, ['user' => $editUser]));
 
+        $editPage->assertOk();
         $editPage->assertSee('TestChangeName');
     }
 
@@ -130,7 +131,66 @@ class UsersEditPageTest extends TestCase
             ->actingAs($admin)
             ->get(route($this::ROUTE_USERS_EDIT, ['user' => $editUser]));
 
+        $editPage->assertOk();
         $editPage->assertSee('TestChangeName');
+    }
+
+    public function test_admin_user_can_change_user_email()
+    {
+        $admin = User::factory()->create();
+        $admin->beAdminUser();
+
+        $editUser = User::factory()->create();
+
+        $resp = $this
+            ->actingAs($admin)
+            ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
+                'update_form' => 'email',
+                'email' => 'changed_email@example.com',
+            ]);
+
+        $resp->assertRedirect();
+
+        //
+        // Check response from edit page
+        //
+        $editPage = $this
+            ->actingAs($admin)
+            ->get(route($this::ROUTE_USERS_EDIT, ['user' => $editUser]));
+
+        $editPage->assertOk();
+        $editPage->assertSee('changed_email@example.com');
+    }
+
+    public function test_admin_user_can_change_user_password()
+    {
+        $admin = User::factory()->create();
+        $admin->beAdminUser();
+
+        $editUser = User::factory()->create();
+
+        $resp = $this
+            ->actingAs($admin)
+            ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
+                'update_form' => 'password',
+                'password' => 'newpassword',
+                'password_confirmation' => 'newpassword',
+            ]);
+
+        $resp->assertRedirect();
+
+        //
+        // Logout and login with new password
+        //
+        $this->post(route($this::ROUTE_AUTH_LOGOUT));
+        $this->assertGuest();
+
+         $this->post(route($this::ROUTE_AUTH_LOGIN), [
+            'email' => $editUser->email,
+            'password' => 'newpassword',
+        ]);
+
+        $this->assertAuthenticatedAs($editUser);
     }
 
     public function test_admin_user_can_delete_user()
