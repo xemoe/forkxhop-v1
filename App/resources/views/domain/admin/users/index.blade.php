@@ -12,6 +12,10 @@
         <div class="alert alert-success" role="alert">
             {{ $message }}
         </div>
+    @elseif ($message = Session::get('failed'))
+        <div class="alert alert-danger" role="alert">
+            {{ $message }}
+        </div>
     @endif
 
     <div class="container-fluid p-0">

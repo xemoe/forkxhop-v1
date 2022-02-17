@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
 
 Route::resource('admin/users', UsersController::class)
-    ->only(['index', 'create', 'store', 'show', 'edit', 'update'])
+    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'role:root|admin',])
     ->names([
         'index' => 'admin.users.index',
@@ -13,4 +13,5 @@ Route::resource('admin/users', UsersController::class)
         'show' => 'admin.users.show',
         'edit' => 'admin.users.edit',
         'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy'
     ]);

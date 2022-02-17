@@ -97,7 +97,7 @@ class UsersController extends Controller
         $user->syncRoles([$request->role]);
 
         return redirect()->route('admin.users.index')
-            ->with('success', sprintf('Users `%s` created successfully.', $user->name));
+            ->with('success', sprintf('User `%s` created successfully.', $user->name));
     }
 
     public function show(User $user)
@@ -139,7 +139,7 @@ class UsersController extends Controller
         $success = false;
         $roleChanged = false;
         $responseState = 'none';
-        $responseMsg = sprintf('Users `%s` nothing changes.', $user->name);
+        $responseMsg = sprintf('User `%s` nothing changes.', $user->name);
 
         switch ($request->update_form) {
             case 'information':
@@ -198,13 +198,36 @@ class UsersController extends Controller
 
         if ($success && $changed) {
             $responseState = 'success';
-            $responseMsg = sprintf('Users `%s` has been updated.', $user->name);
+            $responseMsg = sprintf('User `%s` has been updated.', $user->name);
         } elseif (!$success) {
             $responseState = 'failed';
-            $responseMsg = sprintf('Users `%s` update failed.', $user->name);
+            $responseMsg = sprintf('User `%s` update failed.', $user->name);
         }
 
         return redirect()->route('admin.users.edit', ['user' => $user])
+            ->with($responseState, $responseMsg);
+    }
+
+    public function destroy(Request $request, User $user)
+    {
+        $isDeleted = false;
+        $request->validate([
+            'confirm_delete' => ['in:on']
+        ]);
+
+        if ($request->confirm_delete == 'on') {
+            $isDeleted = $user->delete();
+        }
+
+        if ($isDeleted) {
+            $responseState = 'success';
+            $responseMsg = sprintf('User `%s` has been deleted.', $user->name);
+        } else {
+            $responseState = 'failed';
+            $responseMsg = sprintf('User `%s` delete failed.', $user->name);
+        }
+
+        return redirect()->route('admin.users.index')
             ->with($responseState, $responseMsg);
     }
 }
