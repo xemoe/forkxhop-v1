@@ -113,8 +113,7 @@ class UsersEditPageTest extends TestCase
 
         $editUser = User::factory()->create();
 
-        $resp = $this
-            ->actingAs($admin)
+         $this->actingAs($admin)
             ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
                 'update_form' => 'information',
                 'name' => 'TestChangeName',
@@ -122,17 +121,26 @@ class UsersEditPageTest extends TestCase
                 'active' => 'on',
             ]);
 
-        $resp->assertRedirect();
+        $this->assertEquals('TestChangeName', $editUser->fresh()->name);
+    }
 
-        //
-        // Check response from edit page
-        //
-        $editPage = $this
-            ->actingAs($admin)
-            ->get(route($this::ROUTE_USERS_EDIT, ['user' => $editUser]));
+    public function test_admin_user_can_change_user_role()
+    {
+        $admin = User::factory()->create();
+        $admin->beAdminUser();
 
-        $editPage->assertOk();
-        $editPage->assertSee('TestChangeName');
+        $editUser = User::factory()->create();
+        $editUser->beAdminUser();
+
+         $this->actingAs($admin)
+            ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
+                'update_form' => 'information',
+                'name' => $editUser->name,
+                'role' => 'simple',
+                'active' => 'on',
+            ]);
+
+        $this->assertTrue($editUser->fresh()->isSimpleUser());
     }
 
     public function test_admin_user_can_change_user_email()
@@ -142,24 +150,13 @@ class UsersEditPageTest extends TestCase
 
         $editUser = User::factory()->create();
 
-        $resp = $this
-            ->actingAs($admin)
+         $this->actingAs($admin)
             ->put(route($this::ROUTE_USERS_UPDATE, ['user' => $editUser]), [
                 'update_form' => 'email',
                 'email' => 'changed_email@example.com',
             ]);
 
-        $resp->assertRedirect();
-
-        //
-        // Check response from edit page
-        //
-        $editPage = $this
-            ->actingAs($admin)
-            ->get(route($this::ROUTE_USERS_EDIT, ['user' => $editUser]));
-
-        $editPage->assertOk();
-        $editPage->assertSee('changed_email@example.com');
+        $this->assertEquals('changed_email@example.com', $editUser->fresh()->email);
     }
 
     public function test_admin_user_can_change_user_password()
@@ -207,15 +204,7 @@ class UsersEditPageTest extends TestCase
             ]);
 
         $resp->assertRedirect();
-
-        //
-        // Check response from edit page
-        //
-        $editPage = $this
-            ->actingAs($admin)
-            ->get(route($this::ROUTE_USERS_EDIT, ['user' => $deleteUser]));
-
-        $editPage->assertNotFound();
+        $this->assertNull($deleteUser->fresh());
     }
 
     public function test_simple_user_cannot_access_users_edit_page()
