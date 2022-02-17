@@ -18,32 +18,23 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'order' => ['in:id,name,email'],
+            'order' => ['in:created_at,updated_at,name,email'],
             'sort' => ['in:asc,desc'],
         ]);
 
         $perPage = 3;
-        $orderBy = request()->input('order', 'id');
+        $orderBy = request()->input('order', 'created_at');
         $sort = request()->input('sort', 'desc');
         $users = User::orderBy($orderBy, $sort)
             ->paginate($perPage)
             ->appends(['order' => $orderBy, 'sort' => $sort]);
-
-        $sortOptions = [
-            ['order' => 'id', 'sort' => 'desc'],
-            ['order' => 'id', 'sort' => 'asc'],
-            ['order' => 'name', 'sort' => 'desc'],
-            ['order' => 'name', 'sort' => 'asc'],
-            ['order' => 'email', 'sort' => 'desc'],
-            ['order' => 'email', 'sort' => 'asc'],
-        ];
 
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
         ];
 
-        return view('domain.admin.users.index', compact(['breadcrumb', 'users', 'sortOptions']));
+        return view('domain.admin.users.index', compact(['breadcrumb', 'users', 'orderBy', 'sort']));
     }
 
     /**

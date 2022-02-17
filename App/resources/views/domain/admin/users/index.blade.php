@@ -34,33 +34,12 @@
                             Create New User
                         </a>
                     </div>
-                    <div class="p-0 bd-highlight">
-                        <div class="dropdown">
-                            <a class="btn btn-ghost-primary dropdown-toggle" id="dropdownMenuLink" href="#"
-                               role="button" data-coreui-toggle="dropdown" aria-expanded="false">Sort</a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                @foreach ($sortOptions as $item)
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('admin.users.index', $item) }}">
-                                            {{ $item['order'] }} ({{ $item['sort'] }})
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
-                        <thead class="table-light">
-                        <tr>
-                            <th scope="col" colspan="2"></th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Updated</th>
-                        </tr>
-                        </thead>
+
+                        @include('domain.admin.users._index.thead_with_sort_icons')
+
                         <tbody>
                         @foreach ($users as $user)
                             <tr>
@@ -89,6 +68,7 @@
                                         @endforeach
                                     @endif
                                 </td>
+                                <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->updated_at }}</td>
                             </tr>
                         @endforeach
