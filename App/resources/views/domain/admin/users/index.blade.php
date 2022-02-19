@@ -43,21 +43,32 @@
                         <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td class="p-0 align-middle text-center">
+                                <td class="p-0 align-middle text-center" style="min-width: 24px;">
                                     <a href="{{ route('admin.users.show', ['user' => $user]) }}">
-                                        <svg class="icon icon-sm">
+                                        <svg class="icon icon-sm text-primary">
                                             <use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-search"/>
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="p-0 align-middle text-center">
+                                <td class="p-0 align-middle text-center" style="min-width: 24px;">
                                     <a href="{{ route('admin.users.edit', ['user' => $user]) }}">
-                                        <svg class="icon icon-sm">
+                                        <svg class="icon icon-sm text-primary">
                                             <use xlink:href="{{ asset('/icons/sprites/free.svg') }}#cil-pen"/>
                                         </svg>
                                     </a>
                                 </td>
-                                <td>{{ $user->name }}</td>
+                                <td class="p-0 align-middle text-center text-lowercase">
+                                    @if ($user->isActive())
+                                        <label class="badge rounded-pill bg-info">
+                                            Active
+                                        </label>
+                                    @else
+                                        <label class="badge rounded-pill bg-light">
+                                            Deactive
+                                        </label>
+                                    @endif
+                                </td>
+                                <td class="{{ !$user->isActive() ? 'text-black-50 text-decoration-line-through' : '' }}">{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if(!empty($user->getRoleNames()))
@@ -68,8 +79,8 @@
                                         @endforeach
                                     @endif
                                 </td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->updated_at }}</td>
+                                <td class="font-monospace">{{ $user->created_at }}</td>
+                                <td class="font-monospace">{{ $user->updated_at }}</td>
                             </tr>
                         @endforeach
                         </tbody>

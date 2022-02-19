@@ -1,6 +1,6 @@
 <thead class="table-light">
 <tr>
-    <th scope="col" colspan="2"></th>
+    <th scope="col" colspan="3"></th>
     @foreach (['name', 'email', 'role', 'created_at', 'updated_at'] as $th)
         @if (in_array($th, ['role']))
             <th scope="col">Role</th>
