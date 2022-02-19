@@ -10,15 +10,25 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label" for="inputPassword">Password</label>
-                    <input class="form-control" id="inputPassword" name="password"
+                    <input class="form-control @error('password') is-invalid @enderror" id="inputPassword"
+                           name="password"
+                           minlength="8" maxlength="255"
                            type="password" required>
+                    <small class="form-text text-muted">
+                        {{ $errors->first('password') }}
+                    </small>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label" for="inputConfirmPassword">Confirm Password</label>
-                    <input class="form-control" id="inputConfirmPassword" name="password_confirmation"
+                    <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                           id="inputConfirmPassword" name="password_confirmation"
+                           minlength="8" maxlength="255"
                            type="password" required>
+                    <small class="form-text text-muted">
+                        {{ $errors->first('password_confirmation') }}
+                    </small>
                 </div>
             </div>
         </div>

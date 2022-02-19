@@ -1,9 +1,13 @@
 <x-dashboard-layout :breadcrumb="$breadcrumb">
 
+    @php
+        $defaultRole = 'simple';
+    @endphp
+
     <div class="container-lg p-0">
-        <x-dashboard.cards.validation-errors class="callout callout-danger bg-white" :errors="$errors" />
+        <x-dashboard.cards.validation-errors class="callout callout-danger bg-white" :errors="$errors"/>
         <div class="card mb-4">
-            <form method="POST" action="{{ route('admin.users.store') }}">
+            <form method="POST" class="needs-validation" action="{{ route('admin.users.store') }}" novalidate>
                 @csrf
                 <div class="card-header">
                     <strong>Create New User</strong>
@@ -14,28 +18,46 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="inputName">Name</label>
-                            <input class="form-control" id="inputName" name="name"
+                            <input class="form-control @error('name') is-invalid @enderror" id="inputName" name="name"
+                                   minlength="3" maxlength="255"
                                    type="text" placeholder="Name" value="{{ old('name') }}" required>
+                            <small class="form-text text-muted">
+                                {{ $errors->first('name') }}
+                            </small>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="inputEmail">Email</label>
-                            <input class="form-control" id="inputEmail" name="email"
+                            <input class="form-control @error('email') is-invalid @enderror" id="inputEmail"
+                                   name="email"
                                    type="email" placeholder="name@example.com" value="{{ old('email') }}" required>
+                            <small class="form-text text-muted">
+                                {{ $errors->first('email') }}
+                            </small>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label class="form-label" for="inputPassword">Password</label>
-                            <input class="form-control" id="inputPassword" name="password"
+                            <input class="form-control @error('password') is-invalid @enderror" id="inputPassword"
+                                   name="password"
+                                   minlength="8" maxlength="255"
                                    type="password" required>
+                            <small class="form-text text-muted">
+                                {{ $errors->first('password') }}
+                            </small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label class="form-label" for="inputConfirmPassword">Confirm Password</label>
-                            <input class="form-control" id="inputConfirmPassword" name="password_confirmation"
+                            <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                                   id="inputConfirmPassword" name="password_confirmation"
+                                   minlength="8" maxlength="255"
                                    type="password" required>
+                            <small class="form-text text-muted">
+                                {{ $errors->first('password_confirmation') }}
+                            </small>
                         </div>
                     </div>
 
@@ -43,9 +65,9 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="inputSelectRole">Role</label>
                             <select class="form-select" id="inputSelectRole" size="4" name="role">
-                                <option class="text-capitalize" selected>Choose...</option>
                                 @foreach ($roleOptions as $role)
-                                    <option value="{{ $role }}" class="text-capitalize">{{ $role }}</option>
+                                    <option value="{{ $role }}"
+                                            class="text-capitalize" {{ $defaultRole == $role ? 'selected' : '' }}>{{ $role }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -70,4 +92,25 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </x-dashboard-layout>

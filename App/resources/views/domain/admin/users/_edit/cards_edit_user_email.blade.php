@@ -10,8 +10,11 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label" for="inputEmail">Email</label>
-                    <input class="form-control" id="inputEmail" name="email"
+                    <input class="form-control @error('email') is-invalid @enderror" id="inputEmail" name="email"
                            type="email" placeholder="name@example.com" value="{{ $user->email }}" required>
+                    <small class="form-text text-muted">
+                        {{ $errors->first('email') }}
+                    </small>
                 </div>
             </div>
         </div>

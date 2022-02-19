@@ -1,5 +1,5 @@
 <div class="card mb-4">
-    <form method="POST" action="{{ route('admin.users.update', ['user' => $user]) }}">
+    <form method="POST" class="needs-validation" action="{{ route('admin.users.update', ['user' => $user]) }}" novalidate>
         @csrf
         @method('patch')
         <input type="hidden" name="update_form" value="information"/>
@@ -10,8 +10,12 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label" for="inputName">Name</label>
-                    <input class="form-control" id="inputName" name="name"
+                    <input class="form-control @error('name') is-invalid @enderror" id="inputName" name="name"
+                           minlength="3" maxlength="255"
                            type="text" placeholder="Name" value="{{ $user->name }}" required>
+                    <small class="form-text text-muted">
+                        {{ $errors->first('name') }}
+                    </small>
                 </div>
             </div>
             <div class="row">
