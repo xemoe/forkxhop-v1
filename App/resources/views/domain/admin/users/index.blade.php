@@ -90,7 +90,7 @@
 
             <!-- card footer -->
             <div class="card-footer">
-                {!! $users->render() !!}
+                @include('domain.admin.users._index.paging')
             </div>
 
         </div>

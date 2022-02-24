@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Helpers\PagingHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\{Str, Facades\Hash};
 use Illuminate\Validation\{Rule, Rules};
@@ -28,13 +29,14 @@ class UsersController extends Controller
         $users = User::orderBy($orderBy, $sort)
             ->paginate($perPage)
             ->appends(['order' => $orderBy, 'sort' => $sort]);
+        $paging = (new PagingHelper)->paging($users);
 
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],
         ];
 
-        return view('domain.admin.users.index', compact(['breadcrumb', 'users', 'orderBy', 'sort']));
+        return view('domain.admin.users.index', compact(['breadcrumb', 'users', 'orderBy', 'sort', 'paging']));
     }
 
     /**
