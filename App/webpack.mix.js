@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const ASSET_URL = process.env.ASSET_URL || '/';
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +12,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.setResourceRoot('public');
+mix.setResourceRoot(ASSET_URL);
 mix.setPublicPath('./public');
 
 mix.js('resources/js/app.js', 'public/js')

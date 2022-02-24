@@ -23,7 +23,7 @@
 
             <!-- card header -->
             <div class="card-header">
-                <strong>User Management</strong><span class="small ms-1 text-medium-emphasis">(total {{ $users->count() }} users)</span>
+                <strong><i class="fas fa-users"></i> User Management</strong><span class="small ms-1 text-medium-emphasis">(total {{ $users->count() }} users)</span>
             </div>
 
             <!-- card body -->
