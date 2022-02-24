@@ -18,20 +18,15 @@
 @import "~@coreui/coreui/scss/root";
 
 // 4. Include any optional CoreUI CSS as needed
-//@import "~@coreui/coreui/scss/utilities";
-//@import "~@coreui/coreui/scss/reboot";
-//@import "~@coreui/coreui/scss/type";
-//@import "~@coreui/coreui/scss/images";
-//@import "~@coreui/coreui/scss/containers";
-//@import "~@coreui/coreui/scss/grid";
-//@import "~@coreui/coreui/scss/helpers";
+// @import "~@coreui/coreui/scss/utilities";
+// @import "~@coreui/coreui/scss/reboot";
+// @import "~@coreui/coreui/scss/type";
+// @import "~@coreui/coreui/scss/images";
+// @import "~@coreui/coreui/scss/containers";
+// @import "~@coreui/coreui/scss/grid";
+// @import "~@coreui/coreui/scss/helpers";
 
 // 5. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
-//@import "~@coreui/coreui/scss/utilities/api";
-
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+// @import "~@coreui/coreui/scss/utilities/api";
 
 @import "./custom";
