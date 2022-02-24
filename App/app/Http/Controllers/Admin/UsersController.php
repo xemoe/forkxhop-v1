@@ -21,16 +21,38 @@ class UsersController extends Controller
         $request->validate([
             'order' => ['in:created_at,updated_at,name,email'],
             'sort' => ['in:asc,desc'],
+            'search' => ['alphanum'],
         ]);
 
         $perPage = 3;
         $orderBy = request()->input('order', 'created_at');
         $sort = request()->input('sort', 'desc');
-        $users = User::orderBy($orderBy, $sort)
-            ->paginate($perPage)
-            ->appends(['order' => $orderBy, 'sort' => $sort]);
-        $paging = (new PagingHelper)->paging($users);
 
+        //
+        // With search query
+        //
+        $keyword = false;
+        if ($request->input('search')) {
+            $token = csrf_token();
+            if (!$token) {
+                abort(404);
+            }
+            $keyword = $request->input('search');
+        }
+
+        if ($keyword) {
+            $users = User::where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('email', 'like', '%' . $keyword . '%')
+                ->orderBy($orderBy, $sort)
+                ->paginate($perPage)
+                ->appends(['order' => $orderBy, 'sort' => $sort]);
+        } else {
+            $users = User::orderBy($orderBy, $sort)
+                ->paginate($perPage)
+                ->appends(['order' => $orderBy, 'sort' => $sort]);
+        }
+
+        $paging = (new PagingHelper)->paging($users);
         $breadcrumb = [
             ['name' => 'admin', 'route' => route('admin.users.index')],
             ['name' => 'users', 'route' => route('admin.users.index'), 'active' => 'active'],

@@ -28,12 +28,24 @@
 
             <!-- card body -->
             <div class="card-body p-3">
-                <div class="d-flex bd-highlight">
-                    <div class="p-0 flex-grow-1 bd-highlight">
+                <div class="d-flex">
+
+                    <div class="flex-grow-1 p-0">
                         <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-shadow bg-primary mb-3">
                             Create New User
                         </a>
                     </div>
+
+                    <div class="ms-auto p-0">
+                        <form method="GET" action="{{ route('admin.users.index') }}">
+                            @csrf
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" name="search" placeholder="Search email">
+                                <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
