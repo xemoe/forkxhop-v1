@@ -6386,6 +6386,14 @@ readers do not read off random characters that represent icons */
   --cui-body-bg: #fff;
 }
 
+:root {
+  --cui-blue: #0d6efd;
+  --cui-indigo: $primary;
+  --cui-pagination-active-bg: $primary;
+  --cui-pagination-active-border-color: $primary;
+  --cui-primary: $primary;
+}
+
 .btn-shadow:not(:disabled):not(.disabled) {
   border-color: transparent;
   box-shadow: 0 1px 1px 0 rgba(var(--cui-elevation-base-color, 60, 75, 100), 0.14), 0 2px 1px -1px rgba(var(--cui-elevation-base-color, 60, 75, 100), 0.12), 0 1px 3px 0 rgba(var(--cui-elevation-base-color, 60, 75, 100), 0.2);
@@ -6411,12 +6419,4 @@ html:not([dir=rtl]) .wrapper {
 
 .btn-close {
   background: transparent var(--cui-btn-close-bg, url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='rgba(44, 56, 74, 0.95)' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E")) center/1em auto no-repeat;
-}
-
-:root {
-  --cui-blue: #0d6efd;
-  --cui-indigo: #32589d;
-  --cui-pagination-active-bg: #32589d;
-  --cui-pagination-active-border-color: #32589d;
-  --cui-primary: #32589d;
 }
