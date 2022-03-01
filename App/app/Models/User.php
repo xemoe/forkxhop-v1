@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\WithRolesName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements WithRolesName
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active'
     ];
 
     /**
@@ -40,5 +43,59 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'active' => 'boolean',
     ];
+
+    //
+    // Aliases
+    //
+    public function isRootUser()
+    {
+        return $this->hasRole($this::ROLE_ROOT_USER);
+    }
+
+    public function isAdminUser()
+    {
+        return $this->hasRole($this::ROLE_ADMIN_USER);
+    }
+
+    public function isSimpleUser()
+    {
+        return $this->hasRole($this::ROLE_SIMPLE_USER);
+    }
+
+    public function beRootUser()
+    {
+        $this->syncRoles([$this::ROLE_ROOT_USER]);
+    }
+
+    public function beAdminUser()
+    {
+        $this->syncRoles([$this::ROLE_ADMIN_USER]);
+    }
+
+    public function beSimpleUser()
+    {
+        $this->syncRoles([$this::ROLE_SIMPLE_USER]);
+    }
+
+    //
+    // Active user
+    //
+    public function isActive()
+    {
+        return $this->active === true;
+    }
+
+    public function activeUser()
+    {
+        $this->active = true;
+        $this->save();
+    }
+
+    public function deactiveUser()
+    {
+        $this->active = false;
+        $this->save();
+    }
 }

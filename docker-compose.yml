@@ -9,6 +9,7 @@ services:
     stdin_open: true
     tty: true
     privileged: true
+    working_dir: /var/www
     env_file:
       - ./docker.env
     environment:
