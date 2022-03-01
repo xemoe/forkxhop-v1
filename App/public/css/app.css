@@ -6387,11 +6387,13 @@ readers do not read off random characters that represent icons */
 }
 
 :root {
+  --cui-primary: #32589d;
   --cui-blue: #0d6efd;
-  --cui-indigo: $primary;
-  --cui-pagination-active-bg: $primary;
-  --cui-pagination-active-border-color: $primary;
-  --cui-primary: $primary;
+  --cui-indigo: #32589d;
+  --cui-pagination-active-bg: #32589d;
+  --cui-pagination-active-border-color: #32589d;
+  --cui-nav-link-color: #32589d;
+  --cui-nav-pills-link-active-bg: #32589d;
 }
 
 .btn-shadow:not(:disabled):not(.disabled) {

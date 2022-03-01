@@ -38,8 +38,8 @@ class HeaderSettings
                     [
                         'group' => 'Settings',
                         'items' => [
-                            ['name' => 'Profile', 'route' => '#user-profile', 'icon' => 'cil-user'],
-                            ['name' => 'Settings', 'route' => '#user-settings', 'icon' => 'cil-settings'],
+                            ['name' => 'Profile', 'route' => route('me.user.profile'), 'icon' => 'cil-user'],
+                            ['name' => 'Settings', 'route' => route('me.user.settings'), 'icon' => 'cil-settings'],
                         ],
                     ],
                 ],
@@ -66,8 +66,8 @@ class HeaderSettings
                     [
                         'group' => 'Settings',
                         'items' => [
-                            ['name' => 'Profile', 'route' => '#user-profile', 'icon' => 'cil-user'],
-                            ['name' => 'Settings', 'route' => '#user-settings', 'icon' => 'cil-settings'],
+                            ['name' => 'Profile', 'route' => route('me.user.profile'), 'icon' => 'cil-user'],
+                            ['name' => 'Settings', 'route' => route('me.user.settings'), 'icon' => 'cil-settings'],
                         ],
                     ],
                 ],
@@ -93,8 +93,8 @@ class HeaderSettings
                     [
                         'group' => 'Settings',
                         'items' => [
-                            ['name' => 'Profile', 'route' => '#user-profile', 'icon' => 'cil-user'],
-                            ['name' => 'Settings', 'route' => '#user-settings', 'icon' => 'cil-settings'],
+                            ['name' => 'Profile', 'route' => route('me.user.profile'), 'icon' => 'cil-user'],
+                            ['name' => 'Settings', 'route' => route('me.user.settings'), 'icon' => 'cil-settings'],
                         ],
                     ],
                 ],

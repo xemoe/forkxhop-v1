@@ -1,8 +1,16 @@
+$primary: #32589d !default;
+
 :root {
+    --cui-primary: #32589d;
+
     --cui-blue: #0d6efd;
-    --cui-indigo: $primary;
-    --cui-pagination-active-bg: $primary;
-    --cui-pagination-active-border-color: $primary;
+    --cui-indigo: #32589d;
+    --cui-pagination-active-bg: #32589d;
+    --cui-pagination-active-border-color: #32589d;
+
+    --cui-nav-link-color: #32589d;
+    --cui-nav-pills-link-active-bg: #32589d;
+    
     // --cui-purple: #6f42c1;
     // --cui-pink: #d63384;
     // --cui-red: #dc3545;
@@ -23,7 +31,6 @@
     // --cui-gray-700: #768192;
     // --cui-gray-800: #636f83;
     // --cui-gray-900: #4f5d73;
-    --cui-primary: $primary;
     // --cui-secondary: #9da5b1;
     // --cui-success: #2eb85c;
     // --cui-info: #39f;
