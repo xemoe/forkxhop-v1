@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\UsersController;
 
 Route::resource('admin/users', UsersController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
-    ->middleware(['auth', 'role:root|admin',])
+    ->middleware(['auth', 'permission:create user|delete user|edit user|view users'])
     ->names([
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
