@@ -1,0 +1,78 @@
+@startuml
+allowmixing
+
+'https://plantuml.com/deployment-diagram
+
+'Setup
+actor "<&star> Developer <&star>" as developer
+usecase "Setting up for development" as usecase_setup_dev #Gold
+
+json ENV_VALUE {
+   "DOMAIN_NAME":"forkxhop-v1.xemoe.io",
+   "DB_NAME":"forkxhop-v1-db",
+   "DB_PASSWORD": "forkxhop-v1-password"
+}
+
+file "<&file> docker.env.default" as file_docker_env_default <<Template>>
+file "<&file> docker.env" as file_docker_env <<Required>>
+file "<&file> hosts" as file_hosts_config <<Required>>
+
+card "<&cog> Create docker app network" as docker_app_network <<Required>>
+collections "Docker app base image" as docker_app_base_image <<Docker Image>>
+
+artifact "App **running** container" as laravel_app_container <<Container>> #Lime
+
+'Step 1 Prepare configurations
+card "1. Prepare configurations" as card_prepare_configurations #Gold
+
+card_prepare_configurations .left.> file_docker_env : "<<1.1 Create new if not exist>>"
+file_docker_env .up.> file_docker_env_default : "<<Copies from template file>>"
+ENV_VALUE .down. file_docker_env_default
+
+card_prepare_configurations .right.> file_hosts_config : "<<1.2 Update existing file>>"
+
+'Step 2
+card "2. Build base image" as card_build_base_image #Gold
+
+card "<&cog> Execute docker build image" as run_build_base_image <<Required>>
+card_build_base_image .right.> docker_app_base_image
+docker_app_base_image .right.> run_build_base_image : "<<2.1 Execute docker command>>"
+
+'Step 3
+card "3. Start app container" as card_start_app_container #Gold
+card_start_app_container .right.> docker_app_network : "<<3.1 Execute docker command>>"
+
+file "Docker Compose files" as compose_file {
+    file "<&file> docker-compose.yml" as file_docker_compose_main
+    file "<&file> docker-compose.nginx.yml" as file_docker_compose_nginx
+}
+
+card "<&cog> Execute docker-compose command" as run_docker_compose_command <<Required>>
+run_docker_compose_command .up.> compose_file
+compose_file .up.> file_docker_env
+card_start_app_container .left.> run_docker_compose_command : "<<3.2 Execute docker-compose command>>"
+
+'Step 4
+card "4. Application setup and migration" as card_app_setup #Gold
+
+card "<&cog> Execute setup commands" as run_app_setup <<Required>>
+card "<&cog> Execute migrate commands" as run_app_migrate <<Required>>
+
+card_app_setup .> run_app_setup
+run_app_setup .> run_app_migrate
+
+'Main flow
+developer =down=> usecase_setup_dev
+usecase_setup_dev =down=> card_prepare_configurations
+
+card_prepare_configurations =down=> card_build_base_image
+card_build_base_image =down=> card_start_app_container
+
+card_start_app_container =down=> laravel_app_container
+
+database "Database" as app_db <<Container>>
+laravel_app_container .left.> app_db : "use"
+
+laravel_app_container =down=> card_app_setup
+
+@enduml

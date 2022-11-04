@@ -7,6 +7,13 @@
 > 
 
 ### Getting Started
+
+---
+![Getting Started](diagrams/getting-started.png)
+[📄 source](diagrams/getting-started.puml)
+
+---
+
 - [x] Copy base .env `cp docker.env.default docker.env`
 - [x] Update `docker.env` change your `${DOMAIN_NAME}` `${DB_NAME}` `${DB_PASSWORD}`
 - [x] For local running, update your hosts file with `127.0.0.1 ${DOMAIN_NAME}`
